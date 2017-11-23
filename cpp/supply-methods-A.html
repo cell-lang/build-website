@@ -1,0 +1,12 @@
+<figure class="highlight"><section><pre><code><span class='c'>// Checks whether the <span class="inline-code">part</span> unary relation</span>
+<span class='c'>// contains the value <span class="inline-code">part_id(1)</span></span>
+supply_instance.in_Part(<span class='s'>"part_id(1)"</span>)
+
+<span class='c'>// Checks whether the <span class="inline-code">sells</span> binary relation contains</span>
+<span class='c'>// the pair <span class="inline-code">supplier_id(8)</span>, <span class="inline-code">part_id(2)</span></span>
+supply_instance.in_Sells(<span class='s'>"supplier_id(8)"</span>, <span class='s'>"part_id(2)"</span>)
+
+<span class='c'>// Checks whether <span class="inline-code">availability</span> contains the</span>
+<span class='c'>// triple <span class="inline-code">supplier_id(7)</span>, <span class="inline-code">part_id(3)</span>, <span class="inline-code">25</span></span>
+supply_instance.in_Availability(<span class='s'>"supplier_id(7)"</span>, <span class='s'>"part_id(3)"</span>, <span class='n'>25</span>)
+</code></pre></section></figure>

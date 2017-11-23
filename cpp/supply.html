@@ -1,0 +1,52 @@
+<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>class</span> <span class='m'>Supply</span> {
+<span class='b'>public:</span>
+  Supply();
+  ~Supply();
+
+  std::unique_ptr&lt;cell::<span class='m'>Value</span>&gt; read_state();
+  <span class='b'>void</span> set_state(<span class='k'>const</span> char *);
+  <span class='b'>void</span> execute(<span class='k'>const</span> char *);
+
+  <span class='b'>long</span> <span class='b'>long</span> get_Next_part_id();
+  <span class='b'>long</span> <span class='b'>long</span> get_Next_supplier_id();
+
+  <span class='b'>bool</span> in_Part(<span class='k'>const</span> char *);
+  std::vector&lt;<span class='b'>long</span> <span class='b'>long</span>&gt; get_Part();
+
+  <span class='b'>bool</span> in_Supplier(<span class='k'>const</span> char *);
+  std::vector&lt;<span class='b'>long</span> <span class='b'>long</span>&gt; get_Supplier();
+
+  <span class='b'>bool</span> in_Code(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, std::string&gt;&gt; get_Code();
+
+  <span class='b'>bool</span> in_Phone(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, std::string&gt;&gt; get_Phone();
+
+  <span class='b'>bool</span> in_Sells(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, <span class='b'>long</span> <span class='b'>long</span>&gt;&gt; get_Sells();
+
+  <span class='b'>bool</span> in_Name(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  <span class='b'>bool</span> lookup_Name(<span class='k'>const</span> char *, std::string &amp;);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, std::string&gt;&gt; get_Name();
+
+  <span class='b'>bool</span> in_Address(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  <span class='b'>bool</span> lookup_Address(<span class='k'>const</span> char *, std::string &amp;);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, std::string&gt;&gt; get_Address();
+
+  <span class='b'>bool</span> in_Description(<span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  <span class='b'>bool</span> lookup_Description(<span class='k'>const</span> char *, std::string &amp;);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, std::string&gt;&gt; get_Description();
+
+  <span class='b'>bool</span> in_Availability(<span class='k'>const</span> char *, <span class='k'>const</span> char *, <span class='b'>long</span> <span class='b'>long</span>);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, <span class='b'>long</span> <span class='b'>long</span>, <span class='b'>long</span> <span class='b'>long</span>&gt;&gt; get_Availability();
+
+  <span class='b'>bool</span> in_Unit_price(<span class='k'>const</span> char *, <span class='k'>const</span> char *, <span class='k'>const</span> char *);
+  std::vector&lt;std::tuple&lt;<span class='b'>long</span> <span class='b'>long</span>, <span class='b'>long</span> <span class='b'>long</span>, <span class='b'>long</span> <span class='b'>long</span>&gt;&gt; get_Unit_price();
+
+  std::unique_ptr&lt;cell::<span class='m'>Value</span>&gt; call_Lowest_price_suppliers();
+  std::vector&lt;<span class='b'>long</span> <span class='b'>long</span>&gt; call_Lowest_price_suppliers(<span class='k'>const</span> char *);
+
+<span class='b'>private:</span>
+  <span class='b'>void</span> *ptr;
+};
+</code></pre></section></figure>

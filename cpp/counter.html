@@ -1,0 +1,19 @@
+<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>namespace</span> generated {
+  <span class='k'>class</span> <span class='m'>Counter</span> {
+  <span class='b'>public:</span>
+    Counter();
+    ~Counter();
+
+    std::<span class='b'>unique_ptr</span>&lt;cell::<span class='m'>Value</span>&gt; read_state();
+    <span class='b'>void</span> set_state(<span class='k'>const</span> <span class='b'>char</span> *);
+
+    <span class='b'>void</span> execute(<span class='k'>const</span> <span class='b'>char</span> *);
+
+    <span class='b'>long long</span> get_Value();
+    <span class='b'>long long</span> get_Updates();
+
+  <span class='b'>private:</span>
+    <span class='b'>void</span> *ptr;
+  };
+}
+</code></pre></section></figure>

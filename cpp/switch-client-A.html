@@ -1,0 +1,15 @@
+<figure class="highlight">
+<section>
+<pre><code><span class='c'>// Setting the value of the two inputs</span>
+switch.set_input(<span class='m'>Switch</span>::<span class='u'>SWITCH_ON</span>, <span class='s'>"true"</span>);
+switch.set_input(<span class='m'>Switch</span>::<span class='u'>SWITCH_OFF</span>, <span class='s'>"false"</span>);
+
+<span class='c'>// Propagating the changes to the inputs</span>
+<span class='c'>// throughout the automaton instance</span>
+switch.apply();
+
+<span class='c'>// Reading and printing the value of the only output</span>
+<span class='b'>char</span> text[<span class='n'>16</span>];
+switch.read_output(<span class='m'>Switch</span>::<span class='u'>IS_ON</span>, text, <span class='n'>16</span>);
+printf(<span class='s'>"is_on = %s\n"</span>, text);
+</code></pre></section></figure>

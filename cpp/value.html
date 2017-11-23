@@ -1,0 +1,35 @@
+<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>namespace</span> cell {
+  <span class='k'>class</span> <span class='m'>Value</span> {
+  <span class='n'>public:</span>
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_symb() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_int() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_float() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_seq() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_set() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_bin_rel() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_tern_rel() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_tagged() = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_string() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>bool</span> is_record() = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> <span class='k'>const</span> <span class='b'>char</span> *as_symb() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>long</span> <span class='b'>long</span> as_int() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>double</span> as_float() = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> <span class='b'>unsigned</span> <span class='b'>int</span> size() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='m'>Value</span> *item(<span class='b'>unsigned</span> <span class='b'>int</span>) = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>void</span> entry(<span class='b'>unsigned</span> <span class='b'>int</span>, <span class='m'>Value</span> *&amp;, <span class='m'>Value</span> *&amp;) = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>void</span> entry(<span class='b'>unsigned</span> <span class='b'>int</span>, <span class='m'>Value</span> *&amp;, <span class='m'>Value</span> *&amp;, <span class='m'>Value</span> *&amp;) = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> <span class='k'>const</span> <span class='b'>char</span> *tag() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='m'>Value</span> *untagged() = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> std::string as_str() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='m'>Value</span> *lookup(<span class='k'>const</span> <span class='b'>char</span> *) = <span class='n'>0</span>;
+
+    <span class='k'>virtual</span> std::string printed() = <span class='n'>0</span>;
+    <span class='k'>virtual</span> <span class='b'>void</span> print(std::ostream <span style="color: #333333">&amp;</span>os) = <span class='n'>0</span>;
+  };
+}
+</code></pre></section></figure>

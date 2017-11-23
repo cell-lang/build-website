@@ -1,0 +1,34 @@
+<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>class</span> Counter : generated::Counter {
+<span class='b'>public:</span>
+  <span class='b'>void</span> incr() {
+    instance.execute(<span class='s'>"incr"</span>);
+  }
+
+  <span class='b'>void</span> decr() {
+    instance.execute(<span class='s'>"decr"</span>);
+  }
+
+  <span class='b'>void</span> reset() {
+    instance.execute(<span class='s'>"reset"</span>);
+  }
+
+  <span class='b'>void</span> reset(<span class='b'>long</span> <span class='b'>long</span> value) {
+    char buffer[256];
+    sprintf(buffer, <span class='s'>"reset(%lld)"</span>, value);
+    instance.execute(buffer);
+  }
+
+  <span class='b'>void</span> save_state(ostream &amp;os) {
+    instance.read_state().print(os);
+  }
+
+  <span class='b'>void</span> restore_state(istream &amp;is) {
+    stringstream ss;
+    ss << is.rdbuf();
+    instance.set_state(ss.str().c_str());
+  }
+
+<span class='b'>private:</span>
+  generated::Counter instance;
+};
+</code></pre></section></figure>

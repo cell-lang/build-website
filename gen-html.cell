@@ -1,0 +1,488 @@
+// A* slice(A* xs, Int offset, Int count) = _slice_(xs, offset, count);
+
+////////////////////////////////////////////////////////////////////////////////
+
+// B* scanl(A* xs, (A -> B) f, (B A -> B) g) {
+//   return () if xs == ();
+//   px = f(xs(0));
+//   res = (px);
+//   for i = 1..|xs|:
+//     res = (res | g(px, xs(i)));
+//   ;
+//   return res;
+// }
+
+B* scanl(A* xs, B y0, (B A -> B) f) {
+  y = y0;
+  res = ();
+  for x <- xs:
+    y = f(y, x);
+    res = (res | y);
+  ;
+  return res;
+}
+
+// B* scanr(A* xs, (A -> B) f, (B A -> B) g) {
+//   return () if xs == ();
+//   px = f(rev_at(xs, 0));
+//   res = (px);
+//   for i = 1..|xs|:
+//     res = (res | g(px, rev_at(xs, i)));
+//   ;
+//   return reverse(res);
+// }
+
+
+B* scanr(A* xs, B y0, (B A -> B) f) {
+  y = y0;
+  res = ();
+  for i < |xs|:
+    y = f(y, rev_at(xs, i));
+    res = (res | y);
+  ;
+  return reverse(res);
+}
+
+
+Nat* offsets(T* xs) {
+  return () if xs == ();
+  px = xs(0);
+  res = (0);
+  for i = 1..|xs|:
+    x = xs(i);
+    if x != px:
+      res = (res | i);
+      px = x;
+    ;
+  ;
+  return res;
+}
+
+
+B* mapsr(A* xs, A y, (A A -> B) f) = (
+  if i == |xs| - 1 then f(x, y) else f(x, xs(i+1)) : x @ i <- xs
+);
+
+
+Maybe[Nat] indexl(A x, A* ys) {
+  for y @ i <- ys:
+    return just(i) if y == x;
+  ;
+  return nothing;
+}
+
+
+Nat countl(A* xs, (A -> Bool) p) {
+  for x @ i <- xs:
+    return i if not p(x);
+  ;
+  return |xs|;
+}
+
+
+Nat countr(A* xs, (A -> Bool) p) {
+  for i = 0..|xs|:
+    x = rev_at(xs, i);
+    return i if not p(x);
+  ;
+  return |xs|;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+Nat* indexes(String str, String substr) {
+  chs = chars(str);
+  schs = chars(substr);
+  slen = |schs|;
+  idxs = ();
+  for i = 0 ... |chs| - slen:
+    if slice(chs, i, slen) == schs:
+      idxs = (idxs | i);
+    ;
+  ;
+  return idxs;
+}
+
+
+Bool is_prefix(String prefix, String str) =
+  length(prefix) <= length(str) and chars(prefix) == slice(chars(str), 0, length(prefix));
+
+
+String replace_tabs(String str) {
+  chs = ();
+  for ch <- chars(str):
+    if ch == ascii_tab:
+      chs = (chs | ascii_space, ascii_space);
+    else
+      chs = (chs | ch);
+    ;
+  ;
+  return string(chs);
+}
+
+
+String trim(String str) {
+  chs = chars(str);
+  lc = countl(chs, is_space($));
+  rc = countr(chs, is_space($));
+  return if lc + rc >= |chs| then "" else string(slice(chs, lc, |chs|-lc-rc));
+}
+
+
+String* lines(String str) = (string(l) : l <- split_lines(chars(str)));
+
+////////////////////////////////////////////////////////////////////////////////
+
+type LineType     = text, marked, indented, empty;
+type LineContext  = start, main_title, title, text, code, list, empty(Nat), invalid;
+
+
+LineType line_type(String line) =
+  if   line == ""               then :empty
+  elif is_prefix("  ", line)    then :indented
+  elif is_prefix("** ", line)   then :marked
+                                else :text;
+
+
+LineContext next_ctx(LineContext prev_ctx, (LineType, Maybe[Nat]) line_type) =
+  start,        (text,     _  )   = :main_title,
+  main_title,   (empty,    _  )   = :empty(0),
+  title,        (empty,    _  )   = :empty(0),
+  text,         (text,     _  )   = :text,
+  text,         (empty,    _  )   = :empty(0),
+  code,         (indented, _  )   = :code,
+  code,         (empty,    ca?)   = if ca == just(1) then :code else :empty(0),
+  list,         (marked,   _  )   = :list,
+  list,         (empty,    _  )   = :empty(0),
+  empty(n?),    (text,     _  )   = if n == 0 then :text elif n == 1 then :title else :main_title,
+  empty(n?),    (empty,    _  )   = :empty(nat(n+1)),
+  empty(0 | 1), (indented, _  )   = :code,
+  empty(0 | 1), (marked,   _  )   = :list,
+  _,            _                 = :invalid;
+
+////////////////////////////////////////////////////////////////////////////////
+
+Bool is_keyword(Symbol symb, Nat idx) {
+  return
+    (in(symb, keywords_0) and idx == 0) or
+    (in(symb, keywords_2) and idx == 2) or
+    in(symb, keywords);
+
+  [Symbol] keywords_2 = [:apply, :read, :write];
+
+  [Symbol] keywords_0 = [
+    :clear,
+    :input,
+    :output,
+    :state,
+    :static,
+    :rules,
+    :set
+  ];
+
+  [Symbol] keywords = [
+    :after,
+    :and,
+    :assert,
+    :break,
+    :delete,
+    :elapsed,
+    :elif,
+    :else,
+    :every,
+    :fail,
+    false,
+    :for,
+    :if,
+    :implicit,
+    :insert,
+    :key,
+    :let,
+    :loop,
+    :match,
+    :not,
+    :or,
+    :print,
+    :protocol,
+    :reactive,
+    :return,
+    :sans,
+    :schema,
+    :self,
+    :since,
+    :then,
+    true,
+    :type,
+    :typevar,
+    :undefined,
+    :update,
+    :using,
+    :when,
+    :while
+  ];
+}
+
+
+Maybe[String] token_color(PlainToken token, Nat idx) =
+  lowercase_id(s?)      = if is_keyword(s, idx) then just("k") else nothing,
+  mixedcase_id(s?)      = just("m"),
+  uppercase_id(s?)      = just("u"),
+  qualified_symbol(s?)  = just("a"),
+  string()              = just("s"),
+  <*..*>                |
+  float_lit()           |
+  nanoseconds()         = just("n"),
+  _                     = nothing;
+
+
+String escape_html(String str) {
+  return string(join((escape(ch) : ch <- chars(str))));
+
+  Nat* escape(Nat ch) =
+    if   ch == ascii_lower    then chars("&lt;")
+    elif ch == ascii_greater  then chars("&gt;")
+                              else (ch);
+}
+
+
+implicit files_content : [String -> String] {
+  String make_html_code_line(String line) {
+    lex_res = split_line_into_tokens(chars(line));
+    assert not is_failure(lex_res);
+    fail if is_failure(lex_res);
+    tokens = get_result(lex_res);
+
+    sections = ();
+    for t @ i <- tokens:
+      if i == 0:
+        prefix = substr(line, 2, t.offset-2);
+      else
+        prev_token = tokens(i-1);
+        prefix_offset = prev_token.offset + prev_token.length;
+        prefix_length = t.offset - prefix_offset;
+        prefix = substr(line, prefix_offset, prefix_length);
+      ;
+      color = token_color(t.token, i);
+      text = escape_html(substr(line, t.offset, t.length));
+      if color != nothing:
+        text = "<span class='" & value(color) & "'>" & text & "</span>";
+      ;
+      sections = (sections | escape_html(prefix), text);
+    ;
+
+    len = length(line);
+    if tokens != ():
+      token = last(tokens);
+      tail_idx = token.offset + token.length;
+    else
+      tail_idx = min(len, 2);
+    ;
+    tail = substr(line, tail_idx, len - tail_idx);
+    tail_len = length(tail);
+
+    cmt_idx = min(
+      at(indexes(tail, "//"), 0, tail_len),
+      at(indexes(tail, "##"), 0, tail_len)
+    );
+    ws = escape_html(substr(tail, 0, cmt_idx));
+    cmt = process_inline_code(substr(tail, cmt_idx, tail_len - cmt_idx), false);
+    sections = (sections | ws, "<span class='c'>" & cmt & "</span>") if cmt != "";
+
+    return append(sections);
+
+    // len = |bytes|;
+    // idx = 0;
+    // tokens = ();
+    // loop
+    //   while idx < len and is_space(bytes(idx)):
+    //     idx = nz_nat(idx + 1);
+    //   ;
+    //   break if idx >= len or is_comment(bytes, idx);
+  }
+
+
+  String* make_html_code(String* lines) {
+    html_lines = ({if i == 0 then "<pre><code>" else ""} & make_html_code_line(l) : l @ i <- lines);
+    header = ("<figure class=\"highlight\">", "<section>");
+    footer = ("</section>", "</figure>", "</code></pre>");
+    return header & html_lines & footer;
+  }
+
+  String process_inline_code(String line, Bool insert_box) {
+    opens = indexes(line, "{{");
+    closes = indexes(line, "}}");
+    assert |opens| == |closes|;
+    blocks = zip(opens, closes);
+    strs = ({
+      p = if i == 0 then 0 else right(blocks(i-1)) + 2;
+      noncode = substr(line, p, l-p);
+      code = substr(line, l+2, r-l-2);
+      return append((
+        escape_html(noncode),
+        "<code class=\"inline-code-box\">" if insert_box,
+        "<span class=\"inline-code\">",
+        escape_html(trim(code)),
+        "</span>",
+        "</code>" if insert_box
+      ));
+    } : l, r @ i <- blocks);
+    i = if closes != () then last(closes) + 2 else 0;
+    return append((strs | escape_html(substr(line, i, length(line) - i))));
+  }
+
+
+  String process_includes(String line) {
+    opens = indexes(line, "{#{");
+    closes = indexes(line, "}#}");
+    assert |opens| == |closes|;
+    blocks = zip(opens, closes);
+    strs = ({
+      p = if i == 0 then 0 else right(blocks(i-1)) + 3;
+      text = substr(line, p, l-p);
+      fname = substr(line, l+3, r-l-3);
+      return text & files_content(fname, !!);
+    } : l, r @ i <- blocks);
+    i = if closes != () then last(closes) + 3 else 0;
+    return append((strs | substr(line, i, length(line) - i)));
+  }
+
+
+  String process_directives(String text) {
+    text_1 = process_inline_code(text, true);
+    return process_includes(text_1);
+  }
+
+
+  String make_html_frag(LineContext, String* lines) =
+    main_title  = "<h2>" & escape_html(only_unsafe(lines)) & "</h2>",
+    title       = "<h3>" & escape_html(only_unsafe(lines)) & "</h3>",
+    text        = append(("<p>" & process_directives(l) & "</p>" : l <- lines), "\n"),
+    code        = append(make_html_code(lines), "\n"),
+    list        = "<ul>" & append(("<li>" & process_directives(substr(l, 3, length(l)-3)) & "</li>" : l <- lines)) & "</ul>",
+    empty()     = "",
+    _           = undefined;
+
+
+  Result[(String, String), Nat] make_html_and_code(String input_text) {
+    lines       = (replace_tabs(l) : l <- lines(input_text));
+    types       = (line_type(l) : l <- lines);
+    // code_ahead  = scanr(types, false, $b != :text and ($a or $b == :indented));
+    code_ahead  = scanr(types, nothing, code_scan);
+    contexts    = scanl(zip(types, code_ahead), :start, next_ctx);
+    err_idx     = indexl(:invalid, contexts);
+    assert err_idx == nothing;
+    return failure(value(err_idx)) if err_idx != nothing;
+    offsets     = offsets(contexts);
+    lengths     = mapsr(offsets, |contexts|, $b - $a);
+    sections    = (slice(lines, i, l) : i, l <- zip(offsets, lengths));
+    sect_ctxs   = (contexts(i) : i <- offsets);
+    html_frags  = (make_html_frag(c, s) : c, s <- zip(sect_ctxs, sections));
+    code_frags  = (append((drop(s, 2) : s <- ss), "\n") : c, ss <- zip(sect_ctxs, sections), c == :code);
+    return success((append(html_frags, "\n"), append(code_frags, "\n\n\n")));
+
+    Maybe[Nat] code_scan(Maybe[Nat] p, LineType t) =
+      _,        indented  = just(0),
+      just(n?), empty     = just(nat(n+1)),
+      _,        _         = nothing;
+  }
+}
+
+
+[String] embeddable_files = [
+  "mine-pump.svg",
+  "cpp/switch.html",
+  "cpp/conv-in.html",
+  "cpp/conv-out.html",
+  "cpp/value.html",
+  "cpp/value-methods-B.html",
+  "cpp/counter.html",
+  "cpp/counter-wrapper.html",
+  "cpp/supply.html",
+  "cpp/supply-methods-A.html",
+  "cpp/supply-methods-B.html",
+  "cpp/water-sensor.html",
+  "cpp/water-sensor-client.html",
+  "cpp/switch-client-A.html",
+  "cpp/switch-client-B.html"
+];
+
+
+[String -> String] embedded_files = [
+  "download-link" -> "<a href='download.zip'>here</a>",
+  "src-repos-link" -> "<a href='https://github.com/cell-lang'>github</a>",
+  "google-group-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>cell-lang</a>",
+  "twitter-link" -> "<a href='https://twitter.com/cell_lang'>cell-lang</a>"
+];
+
+
+Int Main(String* args) {
+  if |args| == 2:
+    input_file, html_output_file = args;
+    code_output_file = nothing;
+  elif |args| == 3:
+    input_file, html_output_file, code_output_file = args;
+    code_output_file = just(code_output_file);
+  else
+    Print("Usage: make-html <input file> <html output file> <code output file>\n");
+    return 1;
+  ;
+
+  files_content = [];
+  for f <- _isort_(embeddable_files):
+    res = FileRead(f);
+    if res == nothing:
+      Print("Could not read file " & f & "\n");
+      return 1;
+    ;
+    files_content = files_content & [f -> string(value(res))];
+  ;
+
+  files_content = files_content & embedded_files;
+
+  res = FileRead(input_file);
+  if res == nothing:
+    Print("Could not read file " & input_file & "\n");
+    return 1;
+  ;
+
+
+  res = make_html_and_code(string(value(res)), files_content=files_content);
+  if is_failure(res):
+    Print("Could not generate HTML output\n");
+    return 1;
+  ;
+
+  html, code = (chars(s) : s <- get_result(res));
+
+  ok = FileWrite(html_output_file, html);
+  if code_output_file != nothing:
+    ok = FileWrite(value(code_output_file), code);
+    if not ok:
+      Print("Could not write file " & value(code_output_file));
+      return 1;
+    ;
+  ;
+
+  return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+type UnaryOperator  = unary_minus;
+type BinaryOperator = plus, minus, star, slash, exp, amp, lower, greater, lower_eq, greater_eq, brackets;
+
+type Operator = UnaryOperator, BinaryOperator;
+
+type FloatLit = float_lit(mantissa: <0..9>+, negative: Bool, dec_exp: Int);
+
+type BuiltIn  = neg, add, sub, mult, div, mod, lt, le, gt, ge,
+                fneg, fadd, fsub, fmult, fdiv, fsqrt, floor, ceiling, float, mantissa, dec_exp,
+                str, symb, isort,
+                slice, cat, rev, tag, untag, parse, print,
+                rand_nat, rand_elem, counter, ticks,
+                bits;
+
+////////////////////////////////////////////////////////////////////////////////
+
+FloatLit float_lit(<0..9>+ m, Bool n, Int e)  = float_lit(mantissa: m, negative: n, dec_exp: e);

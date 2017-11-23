@@ -1,0 +1,14 @@
+<figure class="highlight">
+<section>
+<pre><code><span class='c'>// Setting the value of the two inputs</span>
+switch.set_Switch_on(<span class='k'>true</span>);
+switch.set_Switch_off(<span class='k'>false</span>);
+
+<span class='c'>// Propagating the changes to the inputs</span>
+<span class='c'>// throughout the automaton instance</span>
+switch.apply();
+
+<span class='c'>// Reading and printing the value of the only output</span>
+<span class='b'>bool</span> is_on = switch.get_Is_on();
+printf(<span class='s'>"is_on = %s\n"</span>, is_on ? <span class='s'>"true"</span> : <span class='s'>"false"</span>);
+</code></pre></section></figure>

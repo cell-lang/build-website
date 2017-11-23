@@ -1,0 +1,49 @@
+<table class="types-table">
+  <tr>
+    <th>Cell</th>
+    <th>C++</th>
+  </tr>
+  <tr>
+    <td>Int</td>
+    <td>long long</td>
+  </tr>
+  <tr>
+    <td>Float</td>
+    <td>double</td>
+  </tr>
+  <tr>
+    <td>Bool</td>
+    <td>bool</td>
+  </tr>
+  <tr>
+    <td>Symbol</td>
+    <td>const char *</td>
+  </tr>
+  <tr>
+    <td>String</td>
+    <td>std::string (UTF-8)</td>
+  </tr>
+  <tr>
+    <td>(T1, T2, ...)</td>
+    <td>std::tuple&lt;T1', T2', ...&gt;</td>
+  </tr>
+  <tr>
+    <td>T*</td>
+    <td>std::vector&lt;T'&gt;</td>
+  </tr>
+  <tr>
+    <td>[T]</td>
+    <td>std::vector&lt;T'&gt;</td>
+  </tr>
+  <tr>
+    <td>[T1, T2]</td>
+    <td>std::vector&lt;std::tuple&lt;T1', T2'&gt&gt;</td>
+  </tr>
+  <tr>
+    <td>[T1, T2, T3]</td>
+    <td>std::vector&lt;std::tuple&lt;T1', T2', T3'&gt&gt;</td>
+  </tr>
+  <tr>
+    <td>any_tag(T)</td>
+    <td>T'</td>
+</table>

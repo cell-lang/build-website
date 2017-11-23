@@ -1,0 +1,31 @@
+<figure class="highlight"><section><pre><code><span class='c'>// Updating the values of the inputs here</span>
+...
+
+<span class='c'>// Setting the amount of time that has elapsed</span>
+<span class='c'>// since the last call to <span class="inline-code">water_sensor.apply()</span></span>
+water_sensor.set_elapsed_millisecs(<span class='n'>100</span>);
+
+<span class='k'>do</span> {
+  <span class='c'>// Repeatedly calling <span class="inline-code">apply()</span> until it returns true</span>
+  <span class='c'>// That happens only once all pending timers have</span>
+  <span class='c'>// been processed and the changes in the values of</span>
+  <span class='c'>// the inputs propagated throughout the automaton</span>
+  <span class='b'>bool</span> done = water_sensor.apply();
+
+  <span class='c'>// Iterating through the outputs that have changed</span>
+  <span class='c'>// if countinuous or have been activated if discrete</span>
+  <span class='b'>int</span> count = water_sensor.changed_outputs_count();
+  <span class='k'>for</span> (<span class='b'>int</span> i=<span class='n'>0</span> ; i &lt; count ; i++) {
+    <span class='c'>// Retrieving the id of the i-th output that</span>
+    <span class='c'>// has changed or activated</span>
+    <span class='m'>WaterSensor</span>::<span class='m'>Output</span> id = water_sensor.changed_output_id(i);
+
+    <span class='c'>// Reading the value of the changed output</span>
+    <span class='b'>char</span> buffer[<span class='n'>64</span>];
+    water_sensor.read_output(id, buffer, <span class='n'>64</span>);
+
+    <span class='c'>// Now time to do something with the value of the output</span>
+    ...
+  }
+} <span class='k'>while</span> (!done);
+</code></pre></section></figure>

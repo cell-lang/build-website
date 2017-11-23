@@ -1,0 +1,31 @@
+<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>namespace</span> generated {
+  <span class='k'>class</span> <span class='m'>Switch</span> {
+  <span class='b'>public:</span>
+    <span class='k'>enum</span> <span class='m'>Input</span> {<span class='u'>SWITCH_ON</span>, <span class='u'>SWITCH_OFF</span>};
+
+    <span class='k'>enum</span> <span class='m'>Output</span> {<span class='u'>IS_ON</span>};
+
+    Switch();
+    ~Switch();
+
+    <span class='b'>void</span> set_input(<span class='m'>Input</span> input, <span class='k'>const</span> <span class='b'>char</span> *value);
+    <span class='b'>void</span> read_output(<span class='m'>Output</span> output, <span class='b'>char</span> *buffer, <span class='b'>unsigned</span> <span class='b'>int</span> size);
+
+    <span class='b'>void</span> apply();
+
+    std::<span class='b'>unique_ptr</span>&lt;cell::<span class='m'>Value</span>&gt; read_state();
+    <span class='b'>void</span> set_state(<span class='k'>const</span> <span class='b'>char</span> *buffer);
+
+    <span class='b'>unsigned</span> <span class='b'>int</span> changed_outputs_count();
+    <span class='m'>Output</span> changed_output_id(<span class='b'>unsigned</span> <span class='b'>int</span> idx);
+
+    <span class='b'>void</span> set_Switch_on(<span class='b'>bool</span>);
+    <span class='b'>void</span> set_Switch_off(<span class='b'>bool</span>);
+
+    <span class='b'>bool</span> get_Is_on();
+
+  <span class='b'>private:</span>
+    <span class='b'>void</span> *ptr;
+  };
+}
+</code></pre></section></figure>

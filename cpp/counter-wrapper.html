@@ -1,4 +1,4 @@
-<figure class="highlight"><section><pre style="margin: 0; line-height: 125%"><code><span class='k'>class</span> Counter : generated::Counter {
+<figure class="highlight"><section><pre><code><span class='k'>class</span> Counter : generated::Counter {
 <span class='b'>public:</span>
   <span class='b'>void</span> incr() {
     instance.execute(<span class='s'>"incr"</span>);
@@ -24,7 +24,7 @@
 
   <span class='b'>void</span> restore_state(istream &amp;is) {
     stringstream ss;
-    ss << is.rdbuf();
+    ss &lt;&lt; is.rdbuf();
     instance.set_state(ss.str().c_str());
   }
 

@@ -1,0 +1,11 @@
+<figure class="highlight"><section><pre><code><span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">KNOW_EACH_OTHER</span>(
+  PERSON_ID_1   <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  PERSON_ID_2   <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  MET_ON        <span style="color: #333399">DATE</span>    <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  INTRODUCED_BY <span style="color: #333399">INT</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (PERSON_ID_1, PERSON_ID_2),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (PERSON_ID_1) <span style="color: #008800">  REFERENCES</span> <span style="color: #0066BB">PEOPLE</span>(ID),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (PERSON_ID_2) <span style="color: #008800">  REFERENCES</span> <span style="color: #0066BB">PEOPLE</span>(ID),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (INTRODUCED_BY) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">PEOPLE</span>(ID)
+);
+</code></pre></section></figure>

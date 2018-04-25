@@ -215,6 +215,7 @@ Bool is_keyword(Symbol symb, Nat idx) {
     :type,
     :typevar,
     :undefined,
+    :unique,
     :update,
     :using,
     :when,
@@ -236,12 +237,13 @@ Maybe[String] token_color(PlainToken token, Nat idx) =
 
 
 String escape_html(String str) {
-  return string(join((escape(ch) : ch <- chars(str))));
+  return string(join((if html_codes(ch, *) then chars(html_codes(ch, !!)) else (ch) : ch <- chars(str))));
 
-  Nat* escape(Nat ch) =
-    if   ch == ascii_lower    then chars("&lt;")
-    elif ch == ascii_greater  then chars("&gt;")
-                              else (ch);
+  [Nat -> String] html_codes = [
+    ascii_lower     -> "&lt;",
+    ascii_greater   -> "&gt;",
+    ascii_ampersand -> "&amp;"
+  ];
 }
 
 
@@ -302,7 +304,7 @@ implicit files_content : [String -> String] {
 
 
   String* make_html_code(String* lines) {
-    html_lines = ({if i == 0 then "<pre><code>" else ""} & make_html_code_line(l) : l @ i <- lines);
+    html_lines = (#(if i == 0 then "<pre><code>" else "") & make_html_code_line(l) : l @ i <- lines);
     header = ("<figure class=\"highlight\">", "<section>");
     footer = ("</section>", "</figure>", "</code></pre>");
     return header & html_lines & footer;
@@ -319,8 +321,8 @@ implicit files_content : [String -> String] {
       code = substr(line, l+2, r-l-2);
       return append((
         escape_html(noncode),
-        "<code class=\"inline-code-box\">" if insert_box,
-        "<span class=\"inline-code\">",
+        "<code class='inline-code-box" & #(if length(code) > 35 then "-long" else "") & "'>" if insert_box,
+        "<span class='inline-code'>",
         escape_html(trim(code)),
         "</span>",
         "</code>" if insert_box
@@ -371,6 +373,20 @@ implicit files_content : [String -> String] {
     contexts    = scanl(zip(types, code_ahead), :start, next_ctx);
     err_idx     = indexl(:invalid, contexts);
     assert err_idx == nothing;
+    if err_idx != nothing:
+      print "-------------------------------";
+      print "input_text";
+      print input_text;
+      print "lines";
+      print lines;
+      print "types";
+      print types;
+      print "code_ahead";
+      print code_ahead;
+      print "contexts";
+      print contexts;
+      fail;
+    ;
     return failure(value(err_idx)) if err_idx != nothing;
     offsets     = offsets(contexts);
     lengths     = mapsr(offsets, |contexts|, $b - $a);
@@ -403,15 +419,65 @@ implicit files_content : [String -> String] {
   "cpp/water-sensor.html",
   "cpp/water-sensor-client.html",
   "cpp/switch-client-A.html",
-  "cpp/switch-client-B.html"
+  "cpp/switch-client-B.html",
+  "cpp/ops-prec.html",
+  "cpp/ops-fn-names.html",
+  "cpp/cls-types.html",
+  "code/people-table.html",
+  "code/know-each-other-table.html",
+  "code/gangs-members-tables.html",
+  "code/interfaces.html",
+  "code/using-social-network.html",
+
+  "csharp/social-network-schema-0.html",
+  "csharp/join-and-make-friends-with.html",
+  "csharp/social-network-remove.html",
+  "csharp/social-network-bad-remove.html",
+  "csharp/people-by-date-of-birth.html",
+
+  "code/data-conversion.html",
+  "code/value-cs.html",
+  "code/value-methods-cs.html",
+  "code/counter-cs.html",
+  "code/supply-cs.html",
+  "code/supply-methods-cs-A.html",
+  "code/supply-methods-cs-B.html",
+  "code/switch-cs.html",
+  "code/switch-client-cs-A.html",
+  "code/switch-client-cs-B.html",
+  "code/switch-client-cs-C.html",
+  "code/water-sensor-cs.html",
+  "code/water-sensor-client-cs.html"
 ];
 
 
 [String -> String] embedded_files = [
+  "overview-link" -> "<a href='overview.html'>overview</a>",
+  "quick-link" -> "<a href='quick.html'>quick overview</a>",
+  "example-link" -> "<a href='example.html'>example</a>",
+  "example-link-2" -> "<a href='example.html'>introduction/tutorial</a>",
+  "comparison-link" -> "<a href='comparison.html'>here</a>",
+  "comparison-link-2" -> "<a href='comparison.html'>comparison with OOP</a>",
+  "data-link" -> "<a href='data.html'>data</a>",
+  "types-link" -> "<a href='types.html'>types</a>",
+  "relational-link" -> "<a href='relational.html'>relational automata</a>",
+  "updates-link" -> "<a href='updates.html'>state updates</a>",
+
+
   "download-link" -> "<a href='download.zip'>here</a>",
+  "the-elm-architecture-link" -> "<a href='https://guide.elm-lang.org/architecture/'> The Elm Architecture</a>",
   "src-repos-link" -> "<a href='https://github.com/cell-lang'>github</a>",
   "google-group-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>cell-lang</a>",
-  "twitter-link" -> "<a href='https://twitter.com/cell_lang'>cell-lang</a>"
+  "forum-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>forum</a>",
+  "twitter-link" -> "<a href='https://twitter.com/cell_lang'>cell_lang</a>",
+  "binary-relation-link" -> "<a href='https://en.wikipedia.org/wiki/Binary_relation'>binary</a>",
+  "relation-link" -> "<a href='https://en.wikipedia.org/wiki/Finitary_relation'>n-ary</a>",
+  "social-network-state-link" -> "<a href='social-network-state.txt'>state</a>",
+  "reactive-automata-link" -> "<a href='reactive.html'>chapter</a>",
+  "csharp-interface-link" -> "<a href='interface-cs.html'>Interfacing with C#</a>",
+  "getting-started-link" -> "<a href='getting-started.html'>Getting started</a>",
+
+  "release-notes-01-link" -> "<a href='csharp-code-generator-0.1.html'>Cell-to-C# compiler</a>"
 ];
 
 

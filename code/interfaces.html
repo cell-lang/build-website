@@ -1,0 +1,56 @@
+<figure class="highlight"><section><pre><code><span class='k'>class</span> CellLang.Generated.<span class='m'>SocialNetwork</span> {
+  SocialNetwork();
+
+  <span class='m'>Value</span> ReadState();
+  <span class='k'>void</span> SetState(String);
+  <span class='k'>void</span> Execute(String);
+
+  <span class='k'>long</span> NextId;
+
+  <span class='k'>bool</span> Gang(<span class='k'>long</span>);
+  <span class='k'>long</span>[] Gang();
+
+  <span class='k'>bool</span> Person(<span class='k'>long</span>);
+  <span class='k'>long</span>[] Person();
+
+  <span class='k'>bool</span> Nickname(<span class='k'>long</span>, <span class='k'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>string</span>&gt;[] Nickname();
+
+  <span class='k'>bool</span> Member(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] Member();
+
+  <span class='k'>bool</span> KnowEachOther(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] KnowEachOther();
+
+  <span class='k'>bool</span> Rank(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>&gt;[] Rank();
+
+  <span class='k'>bool</span> MetOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Value</span>&gt;[] MetOn();
+
+  <span class='k'>bool</span> JoinedOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Value</span>&gt;[] JoinedOn();
+
+  <span class='k'>bool</span> IntroducedBy(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>&gt;[] IntroducedBy();
+
+  <span class='k'>bool</span> Name(<span class='k'>string</span>, <span class='k'>string</span>);
+  <span class='k'>string</span> Name(<span class='k'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='m'>Value</span>, <span class='k'>string</span>&gt;[] Name();
+
+  <span class='k'>bool</span> Surname(<span class='k'>long</span>, <span class='k'>string</span>);
+  <span class='k'>string</span> Surname(<span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>string</span>&gt;[] Surname();
+
+  <span class='k'>bool</span> DateOfBirth(<span class='k'>long</span>, <span class='k'>string</span>);
+  <span class='m'>Value</span> DateOfBirth(<span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='m'>Value</span>&gt;[] DateOfBirth();
+
+  <span class='k'>bool</span> Leader(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='k'>long</span> Leader(<span class='k'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] Leader();
+
+  <span class='k'>string</span> FullName(<span class='k'>long</span>);
+  <span class='k'>long</span>[] PeopleBornOn(<span class='k'>string</span>);
+}
+</code></pre></section></figure>

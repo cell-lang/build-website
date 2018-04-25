@@ -1,0 +1,16 @@
+<figure class="highlight"><section><pre><code><span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">GANGS</span>(
+  ID        <span style="color: #333399">INT</span>           <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  NAME      <span style="color: #333399">VARCHAR</span>(<span style="color: #0000DD">40</span>)   <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  LEADER    <span style="color: #333399">INT</span>           <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (ID),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (LEADER) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">PEOPLE</span>(ID)
+);
+
+<span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">MEMBERS</span>(
+  PERSON_ID   <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  GANG_ID     <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  JOINED_ON   <span style="color: #333399">DATE</span>    <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  RANK        <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (PERSON_ID, GANG_ID)
+);
+</code></pre></section></figure>

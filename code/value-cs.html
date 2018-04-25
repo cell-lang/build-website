@@ -1,0 +1,34 @@
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> CellLang {
+  <span class='k'>public</span> <span class='k'>interface</span> <span class='m'>Value</span> {
+    <span class='b'>bool</span> IsSymb();
+    <span class='b'>bool</span> IsInt();
+    <span class='b'>bool</span> IsFloat();
+    <span class='b'>bool</span> IsSeq();
+    <span class='b'>bool</span> IsSet();
+    <span class='b'>bool</span> IsBinRel();
+    <span class='b'>bool</span> IsTernRel();
+    <span class='b'>bool</span> IsTagged();
+
+    <span class='b'>bool</span> IsString();
+    <span class='b'>bool</span> IsRecord();
+
+    <span class='b'>string</span> AsSymb();
+    <span class='b'>long</span>   AsLong();
+    <span class='b'>double</span> AsDouble();
+
+    <span class='b'>string</span> AsString();
+
+    <span class='b'>int</span> Size();
+    <span class='m'>Value</span> Item(<span class='b'>int</span> index);
+    <span class='b'>void</span> Entry(<span class='b'>int</span> index, <span class='k'>out</span> <span class='m'>Value</span> arg1, <span class='k'>out</span> <span class='m'>Value</span> arg2);
+    <span class='b'>void</span> Entry(<span class='b'>int</span> index, <span class='k'>out</span> <span class='m'>Value</span> arg1, <span class='k'>out</span> <span class='m'>Value</span> arg2, <span class='k'>out</span> <span class='m'>Value</span> arg3);
+
+    <span class='b'>String</span> Tag();
+    <span class='m'>Value</span> Untagged();
+
+    <span class='m'>Value</span> Lookup(<span class='b'>string</span> field);
+
+    <span class='b'>void</span> Print(<span class='m'>TextWriter</span> writer);
+  };
+}
+</code></pre></section></figure>

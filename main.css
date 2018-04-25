@@ -847,6 +847,25 @@ blockquote.posterous_long_quote {
   margin-bottom: 0px;
 }
 
+.types-table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+}
+
+.types-table td, th {
+  font-style: italic;
+  border: 1px solid #ccc;
+  text-align: left;
+  padding: 8px;
+}
+
+.types-table tr:nth-child(even) {
+  background-color: #eee;
+}
+
+
+
 /*********************************************************
 *  Responsiveness
 *********************************************************/
@@ -940,6 +959,13 @@ blockquote.posterous_long_quote {
   /*font-size: 12;*/
 }
 
+.inline-code-box-long {
+  border-radius: 4px;
+  background: #e8e8f8;
+  /*white-space: nowrap;*/
+  /*font-size: 12;*/
+}
+
 .inline-code {
  margin-left: 3px;
  margin-right: 3px;
@@ -965,6 +991,8 @@ blockquote.posterous_long_quote {
     overflow-x: auto;
     white-space: pre;
     font-size: 14px;
+    /*margin: 0;*/
+    line-height: 140%;
   }
   /* keyword */
   .highlight .k {
@@ -972,6 +1000,9 @@ blockquote.posterous_long_quote {
     /*font-style: italic;*/
     /*font-weight: bold;*/
     /*background-color: #fdd;*/
+  }
+  .highlight .b {
+    color: #659
   }
   /* label */
   .highlight .l {
@@ -1000,4 +1031,11 @@ blockquote.posterous_long_quote {
   /* comment */
   .highlight .c {
     color: #5A5;
+  }
+  /* code in comment */
+  .highlight .c .inline-code {
+    font-style: italic;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-right: 0px;
   }

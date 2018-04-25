@@ -1,0 +1,47 @@
+<figure class="highlight"><section><pre><code><span class='k'>class</span> CellLang.Generated.<span class='m'>Supply</span> {
+  Supply();
+
+  <span class='m'>Value</span> ReadState();
+  <span class='k'>void</span> SetState(<span class='b'>string</span>);
+  <span class='k'>void</span> Execute(<span class='b'>string</span>);
+
+  <span class='b'>long</span> NextPartId;
+  <span class='b'>long</span> NextSupplierId;
+
+  <span class='b'>bool</span> Part(<span class='b'>long</span>);
+  <span class='b'>long</span>[] Part();
+
+  <span class='b'>bool</span> Supplier(<span class='b'>long</span>);
+  <span class='b'>long</span>[] Supplier();
+
+  <span class='b'>bool</span> Code(<span class='b'>long</span>, <span class='b'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>string</span>&gt;[] Code();
+
+  <span class='b'>bool</span> Phone(<span class='b'>long</span>, <span class='b'>string</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>string</span>&gt;[] Phone();
+
+  <span class='b'>bool</span> Sells(<span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>&gt;[] Sells();
+
+  <span class='b'>bool</span> Availability(<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>&gt;[] Availability();
+
+  <span class='b'>bool</span> UnitPrice(<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>&gt;[] UnitPrice();
+
+  <span class='b'>bool</span> Name(<span class='b'>long</span>, <span class='b'>string</span>);
+  <span class='b'>string</span> Name(<span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>string</span>&gt;[] Name();
+
+  <span class='b'>bool</span> Address(<span class='b'>long</span>, <span class='b'>string</span>);
+  <span class='b'>string</span> Address(<span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>string</span>&gt;[] Address();
+
+  <span class='b'>bool</span> Description(<span class='b'>long</span>, <span class='b'>string</span>);
+  <span class='b'>string</span> Description(<span class='b'>long</span>);
+  <span class='m'>Tuple</span>&lt;<span class='b'>long</span>, <span class='b'>string</span>&gt;[] Description();
+
+  <span class='m'>Value</span> LowestPriceSuppliers();
+  <span class='b'>long</span>[] LowestPriceSuppliers(<span class='b'>long</span>);
+}
+</code></pre></section></figure>

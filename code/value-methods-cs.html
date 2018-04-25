@@ -1,0 +1,50 @@
+<figure class="highlight"><section><pre><code>
+  <span class='c'>// Defined only for symbols. Returns a string that</span>
+  <span class='c'>// contains the textual representation of the symbol</span>
+  <span class='b'>string</span> AsSymb();
+
+  <span class='c'>// Defined only for integers</span>
+  <span class='c'>// Returns the value as a 64-bit signed integer</span>
+  <span class='b'>long</span> AsLong();
+
+  <span class='c'>// Defined only for floating point numbers</span>
+  <span class='c'>// Returns the value as a double precision floating point number</span>
+  <span class='b'>double</span> AsFloat();
+
+  <span class='c'>// Defined only for strings</span>
+  <span class='b'>string</span> AsString();
+
+  <span class='c'>// Defined for all collection types:</span>
+  <span class='c'>// sequences, sets, binary and ternary relations</span>
+  <span class='b'>int</span> Size();
+
+  <span class='c'>// Defined only for sequences and sets</span>
+  <span class='c'>// Returns the i-th value in the collection</span>
+  <span class='c'>// In the case of sets, elements are arranged</span>
+  <span class='c'>// in an implementation-defined order</span>
+  <span class='m'>Value</span> Item(<span class='b'>int</span> index);
+
+  <span class='c'>// Defined only for binary relations</span>
+  <span class='c'>// Returns the i-th pair in the relation</span>
+  <span class='c'>// Pairs are arranged in an implementation-defined order</span>
+  <span class='b'>void</span> Entry(<span class='b'>int</span> index, <span class='k'>out</span> <span class='m'>Value</span> arg1, <span class='k'>out</span> <span class='m'>Value</span> arg2);
+
+  <span class='c'>// Defined only for ternary relations</span>
+  <span class='c'>// Returns the i-th triple in the relation</span>
+  <span class='c'>// Entries are arranged in an implementation-defined order</span>
+  <span class='b'>void</span> Entry(<span class='b'>int</span> index, <span class='k'>out</span> <span class='m'>Value</span> arg1, <span class='k'>out</span> <span class='m'>Value</span> arg2; <span class='k'>out</span>, <span class='m'>Value</span> arg3);
+
+  <span class='c'>// Defined only for tagged values</span>
+  <span class='c'>// Returns the textual representation of the tag</span>
+  <span class='b'>string</span> Tag();
+
+  <span class='c'>// Defined only for tagged values</span>
+  <span class='c'>// Returns the value without the tag</span>
+  <span class='m'>Value</span> Untagged();
+
+  <span class='c'>// Defined only for records</span>
+  <span class='c'>// Returns the value of the corresponding field</span>
+  <span class='c'>// The only argument is the textual representation of the</span>
+  <span class='c'>// field symbol, e.g. point.lookup("x")</span>
+  <span class='m'>Value</span> Lookup(<span class='b'>string</span> field);
+</code></pre></section></figure>

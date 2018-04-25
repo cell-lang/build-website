@@ -1,0 +1,66 @@
+<figure class="highlight"><section><pre><code><span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Person</span> {
+  <span class='k'>public</span> <span class='m'>SocialNetwork</span> socialNetwork;
+
+  <span class='k'>public</span> <span class='k'>void</span> Delete() {
+    socialNetwork.Remove(<span class='k'>this</span>);
+
+    <span class='k'>foreach</span> (<span class='k'>var</span> e <span class='k'>in</span> memberships)
+      e.Value.gang.RemoveMember(<span class='k'>this</span>);
+
+    <span class='k'>foreach</span> (<span class='k'>var</span> e <span class='k'>in</span> friendships) {
+      <span class='m'>Friendship</span> f = e.Value;
+      <span class='m'>Person</span> otherPerson = f.person1 == <span class='k'>this</span> ? f.person2 : f.person1;
+      otherPerson.friendships.Remove(id);
+    }
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> LeaveGang(<span class='m'>Gang</span> gang) {
+    <span class='k'>if</span> (memberships.Remove(gang.id))
+      gang.RemoveMember(<span class='k'>this</span>);
+  }
+}
+
+<span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Gang</span> {
+  <span class='k'>public</span> <span class='m'>SocialNetwork</span> socialNetwork;
+
+  <span class='k'>public</span> <span class='k'>void</span> Delete() {
+    socialNetwork.Remove(<span class='k'>this</span>);
+
+    <span class='k'>foreach</span> (<span class='k'>var</span> e <span class='k'>in</span> memberships)
+      e.Value.person.LeaveGang(<span class='k'>this</span>);
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> RemoveMember(<span class='m'>Person</span> person) {
+    <span class='k'>if</span> (!memberships.Remove(person.id)) {
+      person.LeaveGang(<span class='k'>this</span>);
+      <span class='k'>if</span> (leader == person) {
+        <span class='m'>Person</span> newLeader = <span class='k'>null</span>;
+        <span class='k'>int</span> newLeaderRank = <span class='n'>0</span>;
+        <span class='k'>foreach</span> (<span class='k'>var</span> e <span class='k'>in</span> memberships) {
+          <span class='m'><span class='m'>Membership</span></span> m = e.Value;
+          <span class='k'>if</span> (newLeader == <span class='k'>null</span> || newLeaderRank &lt; m.rank) {
+            newLeader = m.person;
+            newLeaderRank = m.rank;
+          }
+        }
+        <span class='k'>if</span> (newLeader != <span class='k'>null</span>)
+          leader = newLeader;
+        <span class='k'>else</span>
+          Delete();
+      }
+    }
+  }
+}
+
+<span class='k'>partial</span> <span class='k'>class</span> <span class='m'>SocialNetwork</span> {
+  <span class='k'>public</span> <span class='k'>void</span> Remove(<span class='m'>Person</span> person) {
+    if (people.Remove(person.id))
+      person.Delete();
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> Remove(<span class='m'>Gang</span> gang) {
+    if (gangs.Remove(gang.id))
+      gang.Delete();
+  }
+}
+</code></pre></section></figure>

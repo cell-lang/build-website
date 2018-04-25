@@ -6,21 +6,26 @@ website:
 	@rm -rf tmp/
 	@mkdir tmp
 	@make -s index
+	@make -s quick-overview
 	@make -s overview
-	@make -s data-model
+	@make -s example
+	@make -s comparison
+	@make -s data
 	@make -s types
 	@make -s functions
 	@make -s imperative
 	@make -s procedures
 	@make -s typechecking
 	@make -s miscellanea
-	@make -s static
+	@make -s relational
 	@make -s updates
 	@make -s reactive
 	@make -s commands
 	@make -s interface
+	@make -s interface-cs
 	@make -s state
 	@make -s getting-started
+	@make -s release-notes-01
 
 gen-html: gen-html.cell
 	@rm -f generated.cpp gen-html
@@ -28,89 +33,121 @@ gen-html: gen-html.cell
 	g++ -ggdb generated.cpp -o gen-html
 	@rm -f generated.cpp
 
-index: gen-html
-	@./gen-html ../docs/index.txt tmp/out.txt
+gen-html.exe: gen-html.cell
+	@rm -f generated.cs gen-html.exe
+	cellc-cs.exe project.txt
+	mcs -nowarn:219 generated.cs -out:gen-html.exe
+	@rm -f generated.cs
+
+index: gen-html.exe
+	@./gen-html.exe ../docs/index.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/index.html
 	@rm -f tmp/out.txt
 
-overview: gen-html
-	@./gen-html ../docs/overview.txt tmp/out.txt
+quick-overview: gen-html.exe
+	@./gen-html.exe ../docs/quick.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/quick.html
+	@rm -f tmp/out.txt
+
+overview: gen-html.exe
+	@./gen-html.exe ../docs/overview.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/overview.html
 	@rm -f tmp/out.txt
 
-data-model: gen-html
-	@./gen-html ../docs/data-model.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/data-model.html
+example: gen-html.exe
+	@./gen-html.exe ../docs/example.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/example.html
+	@rm -f tmp/out.txt
+	@cp social-network-state.txt ../cell-lang.github.io/
+
+comparison: gen-html.exe
+	@./gen-html.exe ../docs/comparison.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/comparison.html
 	@rm -f tmp/out.txt
 
-types: gen-html
-	@./gen-html ../docs/types.txt tmp/out.txt
+data: gen-html.exe
+	@./gen-html.exe ../docs/data.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/data.html
+	@rm -f tmp/out.txt
+
+types: gen-html.exe
+	@./gen-html.exe ../docs/types.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/types.html
 	@rm -f tmp/out.txt
 
-functions: gen-html
-	@./gen-html ../docs/functions.txt tmp/out.txt
+functions: gen-html.exe
+	@./gen-html.exe ../docs/functions.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/functions.html
 	@rm -f tmp/out.txt
 
-imperative: gen-html
-	@./gen-html ../docs/imperative.txt tmp/out.txt
+imperative: gen-html.exe
+	@./gen-html.exe ../docs/imperative.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/imperative.html
 	@rm -f tmp/out.txt
 
-procedures: gen-html
-	@./gen-html ../docs/procedures.txt tmp/out.txt
+procedures: gen-html.exe
+	@./gen-html.exe ../docs/procedures.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/procedures.html
 	@rm -f tmp/out.txt
 
-typechecking: gen-html
-	@./gen-html ../docs/typechecking.txt tmp/out.txt
+typechecking: gen-html.exe
+	@./gen-html.exe ../docs/typechecking.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/typechecking.html
 	@rm -f tmp/out.txt
 
-miscellanea: gen-html
-	@./gen-html ../docs/miscellanea.txt tmp/out.txt
+miscellanea: gen-html.exe
+	@./gen-html.exe ../docs/miscellanea.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/miscellanea.html
 	@rm -f tmp/out.txt
 
-static: gen-html
-	@./gen-html ../docs/static.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/static.html
+relational: gen-html.exe
+	@./gen-html.exe ../docs/relational.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/relational.html
 	@rm -f tmp/out.txt
 
-updates: gen-html
-	@./gen-html ../docs/updates.txt tmp/out.txt
+updates: gen-html.exe
+	@./gen-html.exe ../docs/updates.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/updates.html
 	@rm -f tmp/out.txt
 
-reactive: gen-html
-	@./gen-html ../docs/reactive.txt tmp/out.txt
+reactive: gen-html.exe
+	@./gen-html.exe ../docs/reactive.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/reactive.html
 	@rm -f tmp/out.txt
 
-commands: gen-html
-	@./gen-html ../docs/commands.txt tmp/out.txt
+commands: gen-html.exe
+	@./gen-html.exe ../docs/commands.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/commands.html
 	@rm -f tmp/out.txt
 
-interface: gen-html
-	@./gen-html ../docs/interface.txt tmp/out.txt
+interface: gen-html.exe
+	@./gen-html.exe ../docs/interface.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface.html
 	@rm -f tmp/out.txt
 
-state: gen-html
-	@./gen-html ../docs/state.txt tmp/out.txt
+interface-cs: gen-html.exe
+	@./gen-html.exe ../docs/interface-cs.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface-cs.html
+	@rm -f tmp/out.txt
+
+state: gen-html.exe
+	@./gen-html.exe ../docs/state.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/state.html
 	@rm -f tmp/out.txt
 
-getting-started: gen-html
-	@./gen-html ../docs/getting-started.txt tmp/out.txt
+getting-started: gen-html.exe
+	@./gen-html.exe ../docs/getting-started.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/getting-started.html
+	@rm -f tmp/out.txt
+
+release-notes-01: gen-html.exe
+	@./gen-html.exe ../docs/release-notes/01-csharp-code-generator-0.1.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/csharp-code-generator-0.1.html
 	@rm -f tmp/out.txt
 
 
 clean:
-	@rm -f gen-html
+	@rm -f gen-html.exe
 	@make -s soft-clean
 
 soft-clean:
@@ -118,5 +155,6 @@ soft-clean:
 	@rm -f ../cell-lang.github.io/*.html
 	@rm -f ../cell-lang.github.io/*.css
 	@rm -f ../cell-lang.github.io/*.zip
+	@rm -f ../cell-lang.github.io/*.txt
 	@rm -f generated.cpp
 	@rm -f tmp/out.txt

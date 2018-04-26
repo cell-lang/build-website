@@ -1,0 +1,35 @@
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;
+
+<span class='k'>class</span> <span class='m'>Counter</span> {
+  Counter();
+
+  <span class='m'>Value</span> readState();
+  <span class='b'>void</span> setState(<span class='m'>String</span> newState);
+  <span class='b'>void</span> execute(<span class='m'>String</span> message);
+
+  <span class='b'>long</span> value();
+  <span class='b'>long</span> updates();
+}
+</code></pre></section></figure>
+
+<!-- <span class='b'>long</span> newValue(<span class='m'>CounterMsg</span> msg);
+
+interface CounterMsg {
+
+}
+
+class Decr implements CounterMsg {
+  final static Decr singleton;
+}
+
+class Incr implements CounterMsg {
+  final static Incr singleton;
+}
+
+class Reset implements CounterMsg {
+  final static Reset singleton;
+}
+
+class Reset_Long implements CounterMsg {
+  long inner;
+} -->

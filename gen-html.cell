@@ -356,8 +356,8 @@ implicit files_content : [String -> String] {
 
 
   String make_html_frag(LineContext, String* lines) =
-    main_title  = "<h2>" & escape_html(only_unsafe(lines)) & "</h2>",
-    title       = "<h3>" & escape_html(only_unsafe(lines)) & "</h3>",
+    main_title  = "<h2>" & only_unsafe(lines) & "</h2>",
+    title       = "<h3>" & only_unsafe(lines) & "</h3>",
     text        = append(("<p>" & process_directives(l) & "</p>" : l <- lines), "\n"),
     code        = append(make_html_code(lines), "\n"),
     list        = "<ul>" & append(("<li>" & process_directives(substr(l, 3, length(l)-3)) & "</li>" : l <- lines)) & "</ul>",
@@ -447,7 +447,24 @@ implicit files_content : [String -> String] {
   "code/switch-client-cs-B.html",
   "code/switch-client-cs-C.html",
   "code/water-sensor-cs.html",
-  "code/water-sensor-client-cs.html"
+  "code/water-sensor-client-cs.html",
+
+  "java/data-conversion.html",
+  "java/interface-type-example.html",
+  "java/value.html",
+  "java/value-methods.html",
+  "java/counter.html",
+  "java/set-state.html",
+  "java/supply.html",
+  "java/supply-methods-A.html",
+  "java/supply-methods-B.html",
+  "java/pair-triplet.html",
+  "java/switch.html",
+  "java/switch-client-A.html",
+  "java/switch-client-B.html",
+  "java/switch-client-C.html",
+  "java/water-sensor.html",
+  "java/water-sensor-client.html"
 ];
 
 
@@ -474,10 +491,16 @@ implicit files_content : [String -> String] {
   "relation-link" -> "<a href='https://en.wikipedia.org/wiki/Finitary_relation'>n-ary</a>",
   "social-network-state-link" -> "<a href='social-network-state.txt'>state</a>",
   "reactive-automata-link" -> "<a href='reactive.html'>chapter</a>",
+  "reactive-automata-link-2" -> "<a href='reactive.html'>page</a>",
   "csharp-interface-link" -> "<a href='interface-cs.html'>Interfacing with C#</a>",
   "getting-started-link" -> "<a href='getting-started.html'>Getting started</a>",
+  "java-interface-link" -> "<a href='interface-java.html'>Interfacing with Java</a>",
+  "java-interface-link-2" -> "<a href='interface-java.html'>Java</a>",
 
-  "release-notes-01-link" -> "<a href='csharp-code-generator-0.1.html'>Cell-to-C# compiler</a>"
+  "release-notes-01-link" -> "<a href='csharp-code-generator-0.1.html'>Cell &#x279e; C# compiler</a>",
+  "release-notes-02-link" -> "<a href='java-code-generator-0.1.html'>Cell &#x279e; Java compiler</a>",
+
+  "right-arrow" -> "&#x279e;" // "&rarr;"
 ];
 
 

@@ -1,0 +1,58 @@
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;
+
+<span class='k'>class</span> <span class='m'>WaterSensor</span> {
+  <span class='k'>enum</span> <span class='m'>Input</span> {<span class='u'>RAW_READING</span>};
+
+  <span class='k'>enum</span> <span class='m'>Output</span> {<span class='u'>SENSOR_STATE</span>};
+
+  WaterSensor();
+
+  <span class='k'>void</span> setInput(<span class='m'>Input</span> input, <span class='m'>String</span> value);
+  <span class='m'>Value</span> readOutput(<span class='m'>Output</span> output);
+
+  <span class='k'>void</span> setElapsedMillisecs(<span class='b'>int</span>);
+  <span class='k'>void</span> setElapsedSecs(<span class='b'>int</span>);
+
+  <span class='b'>boolean</span> apply();
+  <span class='m'>Value</span> readState();
+  <span class='k'>void</span> setState(<span class='m'>String</span>);
+
+  <span class='m'>Output</span>[] changedOutputs;
+
+  <span class='c'>// Inputs</span>
+  <span class='k'>public void</span> setRawReading(<span class='m'>Maybe_Bool</span> value);
+
+  <span class='c'>// Outputs</span>
+  <span class='k'>public</span> <span class='m'>WaterSensorState</span> sensorState();
+}
+
+
+<span class='k'>interface</span> <span class='m'>Maybe_Bool</span> {
+
+}
+
+<span class='k'>class</span> <span class='m'>Nothing</span> <span class='k'>implements</span> <span class='m'>Maybe_Bool</span> {
+  <span class='k'>final</span> <span class='k'>static</span> <span class='m'>Nothing</span> singleton;
+}
+
+<span class='k'>class</span> <span class='m'>Just_Bool</span> <span class='k'>implements</span> <span class='m'>Maybe_Bool</span> {
+  <span class='b'>boolean</span> inner;
+}
+
+
+<span class='k'>interface</span> <span class='m'>WaterSensorState</span> {
+
+}
+
+<span class='k'>class</span> <span class='m'>Unknown</span> <span class='k'>implements</span> <span class='m'>WaterSensorState</span> {
+  <span class='k'>final</span> <span class='k'>static</span> <span class='m'>Unknown</span> singleton;
+}
+
+<span class='k'>class</span> <span class='m'>Submerged</span> <span class='k'>implements</span> <span class='m'>WaterSensorState</span> {
+  <span class='b'>boolean</span> inner;
+}
+
+<span class='k'>class</span> <span class='m'>Initializing</span> <span class='k'>implements</span> <span class='m'>WaterSensorState</span> {
+  <span class='k'>final</span> <span class='k'>static</span> <span class='m'>Initializing</span> singleton;
+}
+</code></pre></section></figure>

@@ -21,11 +21,17 @@ website:
 	@make -s updates
 	@make -s reactive
 	@make -s commands
-	@make -s interface
+	@make -s interface-cpp
+	@make -s interface-java
 	@make -s interface-cs
 	@make -s state
 	@make -s getting-started
 	@make -s release-notes-01
+	@make -s release-notes-02
+
+
+download.zip:
+	cd ../download/ ; zip -r ../build-website/download.zip *
 
 gen-html: gen-html.cell
 	@rm -f generated.cpp gen-html
@@ -35,9 +41,17 @@ gen-html: gen-html.cell
 
 gen-html.exe: gen-html.cell
 	@rm -f generated.cs gen-html.exe
-	cellc-cs.exe project.txt
+	cellc-cs.exe -d project.txt
 	mcs -nowarn:219 generated.cs -out:gen-html.exe
 	@rm -f generated.cs
+
+gen-html.jar: gen-html.cell
+	@rm -rf tmp/
+	mkdir tmp/
+	mkdir tmp/gen/ tmp/cls/
+	java -jar ~/bin/cellc-java.jar project.txt tmp/gen/
+	javac -d tmp/cls/ tmp/gen/*.java
+	jar cfe gen-html.jar net.cell_lang.Generated -C tmp/cls/ .
 
 index: gen-html.exe
 	@./gen-html.exe ../docs/index.txt tmp/out.txt
@@ -120,9 +134,14 @@ commands: gen-html.exe
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/commands.html
 	@rm -f tmp/out.txt
 
-interface: gen-html.exe
-	@./gen-html.exe ../docs/interface.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface.html
+interface-cpp: gen-html.exe
+	@./gen-html.exe ../docs/interface-cpp.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface-cpp.html
+	@rm -f tmp/out.txt
+
+interface-java: gen-html.exe
+	@./gen-html.exe ../docs/interface-java.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface-java.html
 	@rm -f tmp/out.txt
 
 interface-cs: gen-html.exe
@@ -143,6 +162,11 @@ getting-started: gen-html.exe
 release-notes-01: gen-html.exe
 	@./gen-html.exe ../docs/release-notes/01-csharp-code-generator-0.1.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/csharp-code-generator-0.1.html
+	@rm -f tmp/out.txt
+
+release-notes-02: gen-html.exe
+	@./gen-html.exe ../docs/release-notes/02-java-code-generator-0.1.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/java-code-generator-0.1.html
 	@rm -f tmp/out.txt
 
 

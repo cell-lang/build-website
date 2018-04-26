@@ -1,0 +1,26 @@
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;
+
+<span class='k'>class</span> <span class='m'>Switch</span> {
+  <span class='k'>enum</span> <span class='m'>Input</span> {<span class='u'>SWITCH_OFF</span>, <span class='u'>SWITCH_ON</span>};
+
+  <span class='k'>enum</span> <span class='m'>Output</span> {<span class='u'>IS_ON</span>};
+
+  Switch();
+
+  <span class='k'>void</span> setInput(<span class='m'>Input</span> input, <span class='m'>String</span> value);
+  <span class='m'>Value</span> readOutput(<span class='m'>Output</span> output);
+
+  <span class='k'>void</span> apply();
+  <span class='m'>Value</span> readState();
+  <span class='k'>void</span> setState(<span class='m'>String</span> newState);
+
+  <span class='m'>Output</span>[] changedOutputs;
+
+  <span class='c'>// Inputs</span>
+  <span class='k'>void</span> setSwitchOff(<span class='b'>boolean</span> value);
+  <span class='k'>void</span> setSwitchOn(<span class='b'>boolean</span> value);
+
+  <span class='c'>// Outputs</span>
+  <span class='k'>boolean</span> isOn();
+};
+</code></pre></section></figure>

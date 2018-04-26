@@ -1,0 +1,14 @@
+<figure class="highlight">
+<section>
+<pre><code><span class='c'>// Setting the value of the two inputs</span>
+switchInstance.setInput(<span class='m'>Switch</span>.<span class='m'>Input</span>.<span class='u'>SWITCH_ON</span>, <span class='s'>"true"</span>);
+switchInstance.setInput(<span class='m'>Switch</span>.<span class='m'>Input</span>.<span class='u'>SWITCH_OFF</span>, <span class='s'>"false"</span>);
+
+<span class='c'>// Propagating the changes to the inputs</span>
+<span class='c'>// throughout the automaton instance</span>
+switchInstance.apply();
+
+<span class='c'>// Reading and printing the value of the only output</span>
+<span class='m'>Value</span> isOn = switchInstance.readOutput(<span class='m'>Switch</span>.<span class='m'>Output</span>.<span class='u'>IS_ON</span>);
+<span class='m'>System</span>.out.println(isOn.toString());
+</code></pre></section></figure>

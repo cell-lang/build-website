@@ -1,0 +1,49 @@
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;</span>
+
+<span class='k'>class</span> <span class='m'>Supply</span> {
+  Supply();
+
+  <span class='m'>Value</span> readState();
+  <span class='k'>void</span> setState(<span class='b'>String</span>);
+  <span class='k'>void</span> execute(<span class='b'>String</span>);
+
+  <span class='b'>long</span> nextPartId();
+  <span class='b'>long</span> nextSupplierId();
+
+  <span class='b'>boolean</span> part(<span class='b'>long</span>);
+  <span class='b'>long</span>[] part();
+
+  <span class='b'>boolean</span> supplier(<span class='b'>long</span>);
+  <span class='b'>long</span>[] supplier();
+
+  <span class='b'>boolean</span> code(<span class='b'>long</span>, <span class='b'>String</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>[], <span class='b'>String</span>[]&gt; code();
+
+  <span class='b'>boolean</span> phone(<span class='b'>long</span>, <span class='b'>String</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>, <span class='b'>String</span>&gt;[] phone();
+
+  <span class='b'>boolean</span> sells(<span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>&gt;[] sells();
+
+  <span class='b'>boolean</span> availability(<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Triplet</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>&gt;[] availability();
+
+  <span class='b'>boolean</span> unitPrice(<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>);
+  <span class='m'>Triplet</span>&lt;<span class='b'>long</span>, <span class='b'>long</span>, <span class='b'>long</span>&gt;[] unitPrice();
+
+  <span class='b'>boolean</span> name(<span class='b'>long</span>, <span class='b'>String</span>);
+  <span class='b'>String</span> name(<span class='b'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>, <span class='b'>String</span>&gt;[] name();
+
+  <span class='b'>boolean</span> address(<span class='b'>long</span>, <span class='b'>String</span>);
+  <span class='b'>String</span> address(<span class='b'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>, <span class='b'>String</span>&gt;[] address();
+
+  <span class='b'>boolean</span> description(<span class='b'>long</span>, <span class='b'>String</span>);
+  <span class='b'>String</span> description(<span class='b'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='b'>long</span>, <span class='b'>String</span>&gt;[] description();
+
+  <span class='m'>Value</span> lowestPriceSuppliers();
+  <span class='b'>long</span>[] lowestPriceSuppliers(<span class='b'>long</span>);
+}
+</code></pre></section></figure>

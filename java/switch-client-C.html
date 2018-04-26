@@ -1,0 +1,18 @@
+<figure class="highlight">
+<section>
+<pre><code><span class='c'>// Changing inputs here</span>
+...
+
+<span class='c'>// Propagating those changes</span>
+switchInstance.apply();
+
+<span class='c'>// Iterating through the outputs that have changed</span>
+<span class='c'>// if continuous or have been activated if discrete</span>
+<span class='b'>for</span> (<span class='m'>Switch</span>.<span class='m'>Output</span> outputId : switchInstance.changedOutputs()) {
+  <span class='c'>// Reading the value of the changed output</span>
+  <span class='m'>Value</span> outputValue = switchInstance.readOutput(outputId);
+
+  <span class='c'>// Now time to do something with the value of the output</span>
+  ...
+}
+</code></pre></section></figure>

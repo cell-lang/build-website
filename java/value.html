@@ -1,0 +1,35 @@
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;
+
+<span class='k'>interface</span> <span class='m'>Value</span> {
+  <span class='b'>boolean</span> isSymb();
+  <span class='b'>boolean</span> isInt();
+  <span class='b'>boolean</span> isFloat();
+  <span class='b'>boolean</span> isSeq();
+  <span class='b'>boolean</span> isSet();
+  <span class='b'>boolean</span> isBinRel();
+  <span class='b'>boolean</span> isTernRel();
+  <span class='b'>boolean</span> isTagged();
+
+  <span class='b'>boolean</span> isString();
+  <span class='b'>boolean</span> isRecord();
+
+  <span class='b'>String</span> asSymb();
+  <span class='b'>long</span>   asLong();
+  <span class='b'>double</span> asDouble();
+
+  <span class='b'>String</span> asString();
+
+  <span class='b'>int</span> size();
+  <span class='m'>Value</span> item(<span class='b'>int</span> index);
+  <span class='m'>Value</span> arg1(<span class='b'>int</span> index);
+  <span class='m'>Value</span> arg2(<span class='b'>int</span> index);
+  <span class='m'>Value</span> arg3(<span class='b'>int</span> index);
+
+  <span class='b'>String</span> tag();
+  <span class='m'>Value</span> untagged();
+
+  <span class='m'>Value</span> lookup(<span class='b'>string</span> field);
+
+  <span class='b'>void</span> print(<span class='m'>Writer</span> writer);
+}
+</code></pre></section></figure>

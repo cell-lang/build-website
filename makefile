@@ -26,6 +26,7 @@ website:
 	@make -s interface-cs
 	@make -s state
 	@make -s getting-started
+	@make -s status-roadmap
 	@make -s release-notes-01
 	@make -s release-notes-02
 
@@ -157,6 +158,11 @@ state: gen-html.exe
 getting-started: gen-html.exe
 	@./gen-html.exe ../docs/getting-started.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/getting-started.html
+	@rm -f tmp/out.txt
+
+status-roadmap: gen-html.exe
+	@./gen-html.exe ../docs/status-roadmap.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/status-roadmap.html
 	@rm -f tmp/out.txt
 
 release-notes-01: gen-html.exe

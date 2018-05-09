@@ -491,7 +491,7 @@ implicit files_content : [String -> String] {
   "relation-link" -> "<a href='https://en.wikipedia.org/wiki/Finitary_relation'>n-ary</a>",
   "social-network-state-link" -> "<a href='social-network-state.txt'>state</a>",
   "reactive-automata-link" -> "<a href='reactive.html'>chapter</a>",
-  "reactive-automata-link-2" -> "<a href='reactive.html'>page</a>",
+  "reactive-automata-link-2" -> "<a href='reactive.html'>reactive automata</a>",
   "csharp-interface-link" -> "<a href='interface-cs.html'>Interfacing with C#</a>",
   "getting-started-link" -> "<a href='getting-started.html'>Getting started</a>",
   "java-interface-link" -> "<a href='interface-java.html'>Interfacing with Java</a>",

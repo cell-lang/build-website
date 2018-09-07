@@ -2,7 +2,8 @@ website:
 	@rm -rf ../cell-lang.github.io/*.html
 	@rm -rf ../cell-lang.github.io/*.css
 	@rm -rf ../cell-lang.github.io/*.zip
-	@cp fonts.css main.css download.zip ../cell-lang.github.io/
+	@cp fonts.css main.css ../cell-lang.github.io/
+	@cp cellc-cpp-linux.zip cellc-java.zip cellc-cs.zip ../cell-lang.github.io/
 	@rm -rf tmp/
 	@mkdir tmp
 	@make -s index
@@ -26,13 +27,21 @@ website:
 	@make -s interface-cs
 	@make -s state
 	@make -s getting-started
+	@make -s benchmarks
 	@make -s status-roadmap
 	@make -s release-notes-01
 	@make -s release-notes-02
+	@make -s release-notes-03
 
 
-download.zip:
-	cd ../download/ ; zip -r ../build-website/download.zip *
+cellc-cpp-linux.zip:
+	cd ../download/cpp/ ; zip -r ../../build-website/cellc-cpp-linux.zip *
+
+cellc-java.zip:
+	cd ../download/java/ ; zip -r ../../build-website/cellc-java.zip *
+
+cellc-cs.zip:
+	cd ../download/csharp/ ; zip -r ../../build-website/cellc-cs.zip *
 
 gen-html: gen-html.cell
 	@rm -f generated.cpp gen-html
@@ -57,6 +66,7 @@ gen-html.jar: gen-html.cell
 index: gen-html.exe
 	@./gen-html.exe ../docs/index.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/index.html
+	@cp ../cell-lang.github.io/index.html ../cell-lang.github.io/home.html
 	@rm -f tmp/out.txt
 
 quick-overview: gen-html.exe
@@ -71,13 +81,13 @@ overview: gen-html.exe
 
 example: gen-html.exe
 	@./gen-html.exe ../docs/example.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/example.html
+	@cat header.html tmp/out.txt footer.html | sed "s:<span class='k'>since</span>:since:g" > ../cell-lang.github.io/example.html
 	@rm -f tmp/out.txt
-	@cp social-network-state.txt ../cell-lang.github.io/
+	@cp online-forum-state.txt ../cell-lang.github.io/
 
 comparison: gen-html.exe
 	@./gen-html.exe ../docs/comparison.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/comparison.html
+	@cat header.html tmp/out.txt footer.html | sed "s:<span class='k'>since</span>:since:g" > ../cell-lang.github.io/comparison.html
 	@rm -f tmp/out.txt
 
 data: gen-html.exe
@@ -160,6 +170,15 @@ getting-started: gen-html.exe
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/getting-started.html
 	@rm -f tmp/out.txt
 
+benchmarks: gen-html.exe
+	@./gen-html.exe ../docs/benchmarks.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/benchmarks.html
+	@rm -f tmp/out.txt
+	@cp ../work/benchmarks/n-body/n-body.cell ../cell-lang.github.io/
+	@cp ../work/benchmarks/spectral-norm/spectral-norm.cell ../cell-lang.github.io/
+	@cp ../work/benchmarks/binary-trees/binary-trees.cell ../cell-lang.github.io/
+	@cp ../work/benchmarks/n-body/n-body-fn.java ../cell-lang.github.io/
+
 status-roadmap: gen-html.exe
 	@./gen-html.exe ../docs/status-roadmap.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/status-roadmap.html
@@ -175,6 +194,11 @@ release-notes-02: gen-html.exe
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/java-code-generator-0.1.html
 	@rm -f tmp/out.txt
 
+release-notes-03: gen-html.exe
+	@./gen-html.exe ../docs/release-notes/03-version-0.2.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/java-code-generator-0.2.html
+	@rm -f tmp/out.txt
+
 
 clean:
 	@rm -f gen-html.exe
@@ -186,5 +210,7 @@ soft-clean:
 	@rm -f ../cell-lang.github.io/*.css
 	@rm -f ../cell-lang.github.io/*.zip
 	@rm -f ../cell-lang.github.io/*.txt
+	@rm -f ../cell-lang.github.io/*.cell
+	@rm -f ../cell-lang.github.io/*.java
 	@rm -f generated.cpp
 	@rm -f tmp/out.txt

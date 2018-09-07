@@ -1,56 +1,64 @@
-<figure class="highlight"><section><pre><code><span class='k'>class</span> CellLang.Generated.<span class='m'>SocialNetwork</span> {
-  SocialNetwork();
+<figure class="highlight"><section><pre><code><span class='k'>package</span> net.cell_lang;
 
-  <span class='m'>Value</span> ReadState();
-  <span class='k'>void</span> SetState(String);
-  <span class='k'>void</span> Execute(String);
+<span class='k'>class</span> <span class='m'>OnlineForum</span> {
+  <span class='m'>OnlineForum</span>();
 
-  <span class='k'>long</span> NextId;
+  <span class='m'>Value</span> readState();
+  <span class='k'>void</span> setState(<span class='m'>String</span>);
+  <span class='k'>void</span> execute(<span class='m'>String</span>);
 
-  <span class='k'>bool</span> Gang(<span class='k'>long</span>);
-  <span class='k'>long</span>[] Gang();
+  <span class='k'>long</span> nextId();
 
-  <span class='k'>bool</span> Person(<span class='k'>long</span>);
-  <span class='k'>long</span>[] Person();
+  <span class='k'>boolean</span> user(<span class='k'>long</span>);
+  <span class='k'>long</span>[] user();
 
-  <span class='k'>bool</span> Nickname(<span class='k'>long</span>, <span class='k'>string</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>string</span>&gt;[] Nickname();
+  <span class='k'>boolean</span> chatGroup(<span class='k'>long</span>);
+  <span class='k'>long</span>[] chatGroup();
 
-  <span class='k'>bool</span> Member(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] Member();
+  <span class='k'>boolean</span> username(<span class='k'>long</span>, <span class='m'>String</span>);
+  <span class='m'>String</span> username(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; username();
 
-  <span class='k'>bool</span> KnowEachOther(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] KnowEachOther();
+  <span class='k'>boolean</span> signupDate(<span class='k'>long</span>, <span class='m'>Date</span>);
+  <span class='m'>Date</span> signupDate(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; signupDate();
 
-  <span class='k'>bool</span> Rank(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>&gt;[] Rank();
+  <span class='k'>boolean</span> firstName(<span class='k'>long</span>, <span class='m'>String</span>);
+  <span class='m'>String</span> firstName(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; firstName();
 
-  <span class='k'>bool</span> MetOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>string</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Value</span>&gt;[] MetOn();
+  <span class='k'>boolean</span> lastName(<span class='k'>long</span>, <span class='m'>String</span>);
+  <span class='m'>String</span> lastName(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; lastName();
 
-  <span class='k'>bool</span> JoinedOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>string</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Value</span>&gt;[] JoinedOn();
+  <span class='k'>boolean</span> dateOfBirth(<span class='k'>long</span>, <span class='m'>Date</span>);
+  <span class='m'>Date</span> dateOfBirth(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; dateOfBirth();
 
-  <span class='k'>bool</span> IntroducedBy(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>&gt;[] IntroducedBy();
+  <span class='k'>boolean</span> name(<span class='k'>long</span>, <span class='m'>String</span>);
+  <span class='m'>String</span> name(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; name();
 
-  <span class='k'>bool</span> Name(<span class='k'>string</span>, <span class='k'>string</span>);
-  <span class='k'>string</span> Name(<span class='k'>string</span>);
-  <span class='m'>Tuple</span>&lt;<span class='m'>Value</span>, <span class='k'>string</span>&gt;[] Name();
+  <span class='k'>boolean</span> admin(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='k'>long</span> admin(<span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; admin();
 
-  <span class='k'>bool</span> Surname(<span class='k'>long</span>, <span class='k'>string</span>);
-  <span class='k'>string</span> Surname(<span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>string</span>&gt;[] Surname();
+  <span class='k'>boolean</span> member(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; member();
 
-  <span class='k'>bool</span> DateOfBirth(<span class='k'>long</span>, <span class='k'>string</span>);
-  <span class='m'>Value</span> DateOfBirth(<span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='m'>Value</span>&gt;[] DateOfBirth();
+  <span class='k'>boolean</span> joinedOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Date</span>);
+  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; joinedOn();
 
-  <span class='k'>bool</span> Leader(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='k'>long</span> Leader(<span class='k'>long</span>);
-  <span class='m'>Tuple</span>&lt;<span class='k'>long</span>, <span class='k'>long</span>&gt;[] Leader();
+  <span class='k'>boolean</span> karma(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='k'>long</span>[]&gt; karma();
 
-  <span class='k'>string</span> FullName(<span class='k'>long</span>);
-  <span class='k'>long</span>[] PeopleBornOn(<span class='k'>string</span>);
+  <span class='k'>boolean</span> friends(<span class='k'>long</span>, <span class='k'>long</span>);
+  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; friends();
+
+  <span class='k'>boolean</span> since(<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Date</span>);
+  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; since();
+
+  <span class='m'>String</span> fullName(<span class='k'>long</span>);
+  <span class='k'>long</span>[] usersWhoSignedUpOn(<span class='m'>Date</span>);
 }
 </code></pre></section></figure>

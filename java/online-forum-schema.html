@@ -1,0 +1,40 @@
+<figure class="highlight"><section><pre><code><span class='k'>public</span> <span class='k'>class</span> <span class='m'>User</span> {
+  <span class='k'>public</span> <span class='b'>int</span>        id;
+  <span class='k'>public</span> <span class='m'>String</span>     username;
+  <span class='k'>public</span> <span class='m'>LocalDate</span>  signupDate;
+  <span class='k'>public</span> <span class='m'>String</span>     firstName;
+  <span class='k'>public</span> <span class='m'>String</span>     lastName;
+  <span class='k'>public</span> <span class='m'>LocalDate</span>  dateOfBirth;
+
+  <span class='k'>public</span> <span class='m'>Set</span>&lt;<span class='m'>Membership</span>&gt; memberships;
+  <span class='k'>public</span> <span class='m'>Set</span>&lt;<span class='m'>Friendship</span>&gt; friendships;
+}
+
+<span class='k'>class</span> <span class='m'>Group</span> {
+  <span class='k'>public</span> <span class='b'>int</span>    id;
+  <span class='k'>public</span> <span class='m'>String</span> name;
+  <span class='k'>public</span> <span class='m'>User</span>   admin;
+
+  <span class='k'>public</span> <span class='m'>Set</span>&lt;<span class='m'>Membership</span>&gt; memberships;
+}
+
+<span class='k'>class</span> <span class='m'>Membership</span> {
+  <span class='k'>public</span> <span class='m'>User</span>       user;
+  <span class='k'>public</span> <span class='m'>Group</span>      group;
+  <span class='k'>public</span> <span class='m'>LocalDate</span>  joinedOn;
+  <span class='k'>public</span> <span class='b'>int</span>        karma;
+}
+
+<span class='k'>class</span> <span class='m'>Friendship</span> {
+  <span class='k'>public</span> <span class='m'>User</span>       user1;
+  <span class='k'>public</span> <span class='m'>User</span>       user2;
+  <span class='k'>public</span> <span class='m'>LocalDate</span>  since;
+}
+
+<span class='k'>class</span> OnlineForum {
+  <span class='b'>int</span> nextId = <span class='n'>0</span>;
+
+  <span class='k'>public</span> <span class='m'>Set</span>&lt;<span class='m'>User</span>&gt;  users;
+  <span class='k'>public</span> <span class='m'>Set</span>&lt;<span class='m'>Group</span>&gt; groups;
+}
+</code></pre></section></figure>

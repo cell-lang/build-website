@@ -1,0 +1,24 @@
+<figure class="highlight"><section><pre><code><span class='k'>class</span> <span class='m'>User</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='k'>void</span> join(<span class='m'>Group</span> group, <span class='m'>LocalDate</span> date, <span class='k'>int</span> rank) {
+    <span class='m'>Membership</span> membership = <span class='k'>new</span> <span class='m'>Membership</span>(<span class='k'>this</span>, group, date, rank);
+    memberships.add(membership);
+    group.addMembership(membership);
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> befriend(<span class='m'>User</span> user, <span class='m'>LocalDate</span> since) {
+    <span class='m'>Friendship</span> friendship = <span class='k'>new</span> <span class='m'>Friendship</span>(<span class='k'>this</span>, user, since);
+    friendships.add(friendship);
+    user.friendships.add(friendship);
+  }
+}
+
+<span class='k'>class</span> <span class='m'>Group</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='k'>void</span> addMembership(<span class='m'>Membership</span> membership) {
+    memberships.add(membership);
+  }
+}
+</code></pre></section></figure>

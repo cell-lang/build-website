@@ -1,0 +1,23 @@
+<figure class="highlight"><section><pre><code><span class='k'>class</span> <span class='m'>OnlineForum</span> {
+  ... <span class='c'>// Same as before</span>
+
+  Multimap&lt;<span class='m'>LocalDate</span>, <span class='m'>User</span>&gt; usersBySignupDate =
+    <span class='k'>new</span> HashMultimap&lt;<span class='m'>LocalDate</span>, <span class='m'>User</span>&gt;();
+
+  <span class='k'>public</span> <span class='m'>Collection</span>&lt;<span class='m'>User</span>&gt; usersWhoSignedUpOn(<span class='m'>LocalDate</span> date) {
+    <span class='k'>return</span> usersBySignupDate.get(date);
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> add(<span class='m'>User</span> user) {
+    users.add(user);
+    usersBySignupDate.put(user.signupDate, user);
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> remove(<span class='m'>Person</span> person) {
+    <span class='k'>if</span> (users.remove(user)) {
+      user.delete();
+      usersBySignupDate.remove(user.signupDate, user);
+    }
+  }
+}
+</code></pre></section></figure>

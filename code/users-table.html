@@ -1,0 +1,11 @@
+<figure class="highlight"><section><pre><code><span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">USERS</span>(
+  ID            <span style="color: #333399">INT</span>           <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  USERNAME      <span style="color: #333399">VARCHAR</span>(<span style="color: #0000DD">20</span>)   <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  SIGNUP_DATE   <span style="color: #333399">DATE</span>          <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  NAME          <span style="color: #333399">VARCHAR</span>(<span style="color: #0000DD">40</span>)   <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  SURNAME       <span style="color: #333399">VARCHAR</span>(<span style="color: #0000DD">40</span>)   <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  DATE_OF_BIRTH <span style="color: #333399">DATE</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (ID),
+  <span style="color: #008800">UNIQUE</span> (USERNAME)
+);
+</code></pre></section></figure>

@@ -1,0 +1,16 @@
+<figure class="highlight"><section><pre><code><span class='c'>// Creating an instance of OnlineForum</span>
+OnlineForum onlineForum = new OnlineForum();
+
+<span class='c'>// Reading and setting the initial state for the automaton</span>
+Path inputFile = Paths.get(<span class='s'>&quot;initial-state.txt&quot;</span>);
+onlineForum.setState(new String(Files.readAllBytes(inputFile)));
+
+<span class='c'>// Sending a message</span>
+onlineForum.execute(<span class='s'>&quot;delete_user(id: user_id(5))&quot;</span>);
+
+<span class='c'>// Writing the new state to a file</span>
+try (FileWriter writer = new FileWriter(<span class='s'>&quot;final-state.txt&quot;</span>)) {
+  onlineForum.readState().print(writer);
+}
+</code></pre></section></figure>
+

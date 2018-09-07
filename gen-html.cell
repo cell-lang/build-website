@@ -24,10 +24,10 @@ B* scanl(A* xs, B y0, (B A -> B) f) {
 
 // B* scanr(A* xs, (A -> B) f, (B A -> B) g) {
 //   return () if xs == ();
-//   px = f(rev_at(xs, 0));
+//   px = f(rat(xs, 0));
 //   res = (px);
 //   for i = 1..|xs|:
-//     res = (res | g(px, rev_at(xs, i)));
+//     res = (res | g(px, rat(xs, i)));
 //   ;
 //   return reverse(res);
 // }
@@ -37,7 +37,7 @@ B* scanr(A* xs, B y0, (B A -> B) f) {
   y = y0;
   res = ();
   for i < |xs|:
-    y = f(y, rev_at(xs, i));
+    y = f(y, rat(xs, i));
     res = (res | y);
   ;
   return reverse(res);
@@ -82,7 +82,7 @@ Nat countl(A* xs, (A -> Bool) p) {
 
 Nat countr(A* xs, (A -> Bool) p) {
   for i = 0..|xs|:
-    x = rev_at(xs, i);
+    x = rat(xs, i);
     return i if not p(x);
   ;
   return |xs|;
@@ -129,7 +129,18 @@ String trim(String str) {
 }
 
 
-String* lines(String str) = (string(l) : l <- split_lines(chars(str)));
+String* lines(String str) {
+  return (string(l) : l <- split_lines(chars(str)));
+
+  Nat** split_lines(Nat* chs) {
+    return (rem_trail_cr(l) : l <- split(chs, ascii_newline));
+  }
+
+  Nat* rem_trail_cr(Nat* line) {
+    has_cr = line != () and rat(line, 0) == ascii_carriage_return;
+    return if has_cr then subseq(line, 0, |line|-1) else line;
+  }
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -304,7 +315,7 @@ implicit files_content : [String -> String] {
 
 
   String* make_html_code(String* lines) {
-    html_lines = (#(if i == 0 then "<pre><code>" else "") & make_html_code_line(l) : l @ i <- lines);
+    html_lines = ({if i == 0 then "<pre><code>" else ""} & make_html_code_line(l) : l @ i <- lines);
     header = ("<figure class=\"highlight\">", "<section>");
     footer = ("</section>", "</figure>", "</code></pre>");
     return header & html_lines & footer;
@@ -321,7 +332,7 @@ implicit files_content : [String -> String] {
       code = substr(line, l+2, r-l-2);
       return append((
         escape_html(noncode),
-        "<code class='inline-code-box" & #(if length(code) > 35 then "-long" else "") & "'>" if insert_box,
+        "<code class='inline-code-box" & {if length(code) > 35 then "-long" else ""} & "'>" if insert_box,
         "<span class='inline-code'>",
         escape_html(trim(code)),
         "</span>",
@@ -342,6 +353,7 @@ implicit files_content : [String -> String] {
       p = if i == 0 then 0 else right(blocks(i-1)) + 3;
       text = substr(line, p, l-p);
       fname = substr(line, l+3, r-l-3);
+      assert files_content(fname, *);
       return text & files_content(fname, !!);
     } : l, r @ i <- blocks);
     i = if closes != () then last(closes) + 3 else 0;
@@ -423,17 +435,13 @@ implicit files_content : [String -> String] {
   "cpp/ops-prec.html",
   "cpp/ops-fn-names.html",
   "cpp/cls-types.html",
+
   "code/people-table.html",
   "code/know-each-other-table.html",
   "code/gangs-members-tables.html",
   "code/interfaces.html",
-  "code/using-social-network.html",
-
-  "csharp/social-network-schema-0.html",
-  "csharp/join-and-make-friends-with.html",
-  "csharp/social-network-remove.html",
-  "csharp/social-network-bad-remove.html",
-  "csharp/people-by-date-of-birth.html",
+  "code/using-online-forum.html",
+  "code/online-forum-tables.html",
 
   "code/data-conversion.html",
   "code/value-cs.html",
@@ -448,6 +456,8 @@ implicit files_content : [String -> String] {
   "code/switch-client-cs-C.html",
   "code/water-sensor-cs.html",
   "code/water-sensor-client-cs.html",
+
+  "tables/benchmark-results.html",
 
   "java/data-conversion.html",
   "java/interface-type-example.html",
@@ -464,7 +474,12 @@ implicit files_content : [String -> String] {
   "java/switch-client-B.html",
   "java/switch-client-C.html",
   "java/water-sensor.html",
-  "java/water-sensor-client.html"
+  "java/water-sensor-client.html",
+  "java/online-forum-schema.html",
+  "java/join-and-befriend.html",
+  "java/online-forum-remove.html",
+  "java/online-forum-bad-remove.html",
+  "java/users-by-signup-date.html"
 ];
 
 
@@ -477,9 +492,14 @@ implicit files_content : [String -> String] {
   "comparison-link-2" -> "<a href='comparison.html'>comparison with OOP</a>",
   "data-link" -> "<a href='data.html'>data</a>",
   "types-link" -> "<a href='types.html'>types</a>",
+  "functions-link" -> "<a href='functions.html'>functions</a>",
   "relational-link" -> "<a href='relational.html'>relational automata</a>",
   "updates-link" -> "<a href='updates.html'>state updates</a>",
+  "benchmarks-link" -> "<a href='benchmarks.html'>here</a>",
 
+  "download-java-link" -> "<a href='cellc-java.zip'>Java</a>",
+  "download-cpp-linux-link" -> "<a href='cellc-cpp-linux.zip'>C++ (Linux)</a>",
+  "download-csharp-link" -> "<a href='cellc-cs.zip'>C#</a>",
 
   "download-link" -> "<a href='download.zip'>here</a>",
   "the-elm-architecture-link" -> "<a href='https://guide.elm-lang.org/architecture/'> The Elm Architecture</a>",
@@ -489,7 +509,7 @@ implicit files_content : [String -> String] {
   "twitter-link" -> "<a href='https://twitter.com/cell_lang'>cell_lang</a>",
   "binary-relation-link" -> "<a href='https://en.wikipedia.org/wiki/Binary_relation'>binary</a>",
   "relation-link" -> "<a href='https://en.wikipedia.org/wiki/Finitary_relation'>n-ary</a>",
-  "social-network-state-link" -> "<a href='social-network-state.txt'>state</a>",
+  "online-forum-state-link" -> "<a href='online-forum-state.txt'>state</a>",
   "reactive-automata-link" -> "<a href='reactive.html'>chapter</a>",
   "reactive-automata-link-2" -> "<a href='reactive.html'>reactive automata</a>",
   "csharp-interface-link" -> "<a href='interface-cs.html'>Interfacing with C#</a>",
@@ -499,8 +519,19 @@ implicit files_content : [String -> String] {
 
   "release-notes-01-link" -> "<a href='csharp-code-generator-0.1.html'>Cell &#x279e; C# compiler</a>",
   "release-notes-02-link" -> "<a href='java-code-generator-0.1.html'>Cell &#x279e; Java compiler</a>",
+  "release-notes-03-link" -> "<a href='java-code-generator-0.2.html'>Cell &#x279e; Java compiler</a>",
 
-  "right-arrow" -> "&#x279e;" // "&rarr;"
+  "right-arrow" -> "&#x279e;", // "&rarr;"
+
+  "n-body-link" -> "<a href='n-body.cell'>n-body</a>",
+  "spectral-norm-link" -> "<a href='spectral-norm.cell'>spectral-norm</a>",
+  "binary-trees-link" -> "<a href='binary-trees.cell'>binary-trees</a>",
+  "n-body-java-fn-link" -> "<a href='n-body-fn.java'>code</a>",
+
+  "benchmark-game-link" ->
+    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/'>The Computer Language Benchmarks Game</a>",
+  "benchmarks-list-link" ->
+    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/summary.html'>here</a>"
 ];
 
 

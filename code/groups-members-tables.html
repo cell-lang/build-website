@@ -1,0 +1,18 @@
+<figure class="highlight"><section><pre><code><span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">CHAT_GROUPS</span>(
+  ID        <span style="color: #333399">INT</span>           <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  NAME      <span style="color: #333399">VARCHAR</span>(<span style="color: #0000DD">40</span>)   <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  ADMIN     <span style="color: #333399">INT</span>           <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (ID),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (ADMIN) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">USERS</span>(ID)
+);
+
+<span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">MEMBERS</span>(
+  USER        <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  CHAT_GROUP  <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  JOINED_ON   <span style="color: #333399">DATE</span>    <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  KARMA       <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (USER, GROUP),
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (USER) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">USERS</span>(ID)
+  <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (CHAT_GROUP) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">CHAT_GROUPS</span>(ID)
+);
+</code></pre></section></figure>

@@ -1,0 +1,64 @@
+<figure class="highlight"><section><pre><code><span class='k'>class</span> <span class='m'>User</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='m'>OnlineForum</span> onlineForum;
+
+  <span class='k'>public</span> <span class='k'>void</span> delete() {
+    onlineForum.remove(<span class='k'>this</span>);
+
+    <span class='k'>for</span> (<span class='m'>Membership</span> m : memberships)
+      m.group.removeMember(<span class='k'>this</span>);
+
+    <span class='k'>for</span> (<span class='m'>Friendship</span> f : friendships) {
+      <span class='m'>User</span> otherUser = f.user1 == <span class='k'>this</span> ? f.user2 : f.user1;
+      otherUser.friendships.remove(<span class='k'>this</span>);
+    }
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> leaveGroup(<span class='m'>Group</span> group) {
+    <span class='k'>if</span> (memberships.remove(group))
+      group.removeMember(<span class='k'>this</span>);
+  }
+}
+
+<span class='k'>class</span> <span class='m'>Group</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='m'>OnlineForum</span> onlineForum;
+
+  <span class='k'>public</span> <span class='k'>void</span> delete() {
+    onlineForum.remove(<span class='k'>this</span>);
+
+    <span class='k'>for</span> (<span class='m'>Membership</span> m : memberships)
+      m.user.leaveGroup(<span class='k'>this</span>);
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> removeMember(<span class='m'>User</span> user) {
+    <span class='k'>if</span> (memberships.remove(user)) {
+      user.leaveGroup(<span class='k'>this</span>);
+      <span class='k'>if</span> (user == admin) {
+        <span class='m'>Optional</span>&lt;<span class='m'>Membership</span>&gt; newAdminMembership = memberships.stream()
+          .collect(<span class='m'>Collectors</span>.maxBy(m1, m2 -> m1.karma - m2.karma));
+        <span class='k'>if</span> (newAdminMembership.isPresent())
+          admin = newAdminMembership.get().user;
+        <span class='k'>else</span>
+          delete();
+      }
+    }
+  }
+}
+
+<span class='k'>class</span> <span class='m'>OnlineForum</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='k'>void</span> remove(<span class='m'>User</span> user) {
+    if (users.remove(user))
+      user.delete();
+  }
+
+  <span class='k'>public</span> <span class='k'>void</span> remove(<span class='m'>Group</span> group) {
+    if (groups.remove(group))
+      group.delete();
+  }
+}
+</code></pre></section></figure>

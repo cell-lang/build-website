@@ -486,6 +486,7 @@ implicit files_content : [String -> String] {
 [String -> String] embedded_files = [
   "overview-link" -> "<a href='overview.html'>overview</a>",
   "quick-link" -> "<a href='quick.html'>quick overview</a>",
+  "faq-link" -> "<a href='faq.html'>FAQ</a>",
   "example-link" -> "<a href='example.html'>example</a>",
   "example-link-2" -> "<a href='example.html'>introduction/tutorial</a>",
   "comparison-link" -> "<a href='comparison.html'>here</a>",
@@ -495,14 +496,13 @@ implicit files_content : [String -> String] {
   "functions-link" -> "<a href='functions.html'>functions</a>",
   "relational-link" -> "<a href='relational.html'>relational automata</a>",
   "updates-link" -> "<a href='updates.html'>state updates</a>",
+  "relations-link" -> "<a href='relations.html'>Why relations are better than objects</a>",
   "benchmarks-link" -> "<a href='benchmarks.html'>here</a>",
 
   "download-java-link" -> "<a href='cellc-java.zip'>Java</a>",
   "download-cpp-linux-link" -> "<a href='cellc-cpp-linux.zip'>C++ (Linux)</a>",
   "download-csharp-link" -> "<a href='cellc-cs.zip'>C#</a>",
 
-  "download-link" -> "<a href='download.zip'>here</a>",
-  "the-elm-architecture-link" -> "<a href='https://guide.elm-lang.org/architecture/'> The Elm Architecture</a>",
   "src-repos-link" -> "<a href='https://github.com/cell-lang'>github</a>",
   "google-group-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>cell-lang</a>",
   "forum-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>forum</a>",
@@ -522,16 +522,40 @@ implicit files_content : [String -> String] {
   "release-notes-03-link" -> "<a href='java-code-generator-0.2.html'>Cell &#x279e; Java compiler</a>",
 
   "right-arrow" -> "&#x279e;", // "&rarr;"
+  "sub-1" -> "<sub>1</sub>",
+  "sub-2" -> "<sub>2</sub>",
 
   "n-body-link" -> "<a href='n-body.cell'>n-body</a>",
   "spectral-norm-link" -> "<a href='spectral-norm.cell'>spectral-norm</a>",
   "binary-trees-link" -> "<a href='binary-trees.cell'>binary-trees</a>",
   "n-body-java-fn-link" -> "<a href='n-body-fn.java'>code</a>",
 
+  "network-model-link" -> "<a href='https://github.com/cell-lang/network-model'>here</a>",
+
+  "the-elm-architecture-link" ->
+    "<a href='https://guide.elm-lang.org/architecture/'> The Elm Architecture</a>",
+  "adt-link" -> "<a href='https://en.wikipedia.org/wiki/Algebraic_data_type'>algebraic data types</a>",
   "benchmark-game-link" ->
     "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/'>The Computer Language Benchmarks Game</a>",
   "benchmarks-list-link" ->
-    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/summary.html'>here</a>"
+    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/summary.html'>here</a>",
+  "pure-function-link" -> "<a href='https://en.wikipedia.org/wiki/Pure_function'>pure functions</a>",
+  "out-of-the-tar-pit-links" ->
+    "<a href='https://www.google.com/search?q=out+of+the+tar+pit'>Out of the Tar Pit</a>",
+  "pointer-aliasing-link" ->
+    "<a href='https://en.wikipedia.org/wiki/Pointer_aliasing'>pointer aliasing</a>",
+  "reactive-wikipedia-link" ->
+    "<a href='https://en.wikipedia.org/wiki/Reactive_programming'>reactive</a>",
+  "funct-reactive-wikipedia-link" ->
+    "<a href='https://en.wikipedia.org/wiki/Functional_reactive_programming'>functional reactive</a>",
+  "mythical-man-month-link" ->
+    "<a href='https://en.wikipedia.org/wiki/The_Mythical_Man-Month'>The Mythical Man Month</a>",
+  "value-of-values-link" ->
+    "<a href='https://www.youtube.com/watch?v=-6BsiVyC1kM'>The Value of Values</a>",
+  "reactivex-link" -> "<a href='http://reactivex.io/'>ReactiveX</a>",
+  "greenspun-link" ->
+    "<a href='https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule'>ad-hoc, informally-specified, bug-ridden, slow implementation</a>",
+  "crud-link" -> "<a href='https://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>CRUD</a>"
 ];
 
 

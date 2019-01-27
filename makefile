@@ -7,8 +7,9 @@ website:
 	@rm -rf tmp/
 	@mkdir tmp
 	@make -s index
-	@make -s quick-overview
 	@make -s overview
+	@make -s quick-overview
+	@make -s faq
 	@make -s example
 	@make -s comparison
 	@make -s data
@@ -25,7 +26,7 @@ website:
 	@make -s interface-cpp
 	@make -s interface-java
 	@make -s interface-cs
-	@make -s state
+	@make -s relations
 	@make -s getting-started
 	@make -s benchmarks
 	@make -s status-roadmap
@@ -160,6 +161,11 @@ interface-cs: gen-html.exe
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/interface-cs.html
 	@rm -f tmp/out.txt
 
+relations: gen-html.exe
+	@./gen-html.exe ../docs/relations.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/relations.html
+	@rm -f tm/out.txt
+
 state: gen-html.exe
 	@./gen-html.exe ../docs/state.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/state.html
@@ -168,6 +174,11 @@ state: gen-html.exe
 getting-started: gen-html.exe
 	@./gen-html.exe ../docs/getting-started.txt tmp/out.txt
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/getting-started.html
+	@rm -f tmp/out.txt
+
+faq: gen-html.exe
+	@./gen-html.exe ../docs/faq.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/faq.html
 	@rm -f tmp/out.txt
 
 benchmarks: gen-html.exe

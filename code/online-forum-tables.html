@@ -28,9 +28,9 @@
 );
 
 <span style="color: #008800">CREATE</span> <span style="color: #008800">TABLE</span> <span style="color: #0066BB">FRIENDSHIPS</span>(
-  USER_1  <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
-  USER_2  <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
-  SINCE   <span style="color: #333399">DATE</span>    <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  USER_1  <span style="color: #333399">INT</span>      <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  USER_2  <span style="color: #333399">INT</span>      <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
+  SINCE   <span style="color: #333399">DATETIME</span> <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
   <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (USER_1, USER_2),
   <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (USER_1) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">USERS</span>(ID),
   <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (USER_2) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">USERS</span>(ID)

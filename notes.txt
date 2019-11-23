@@ -1,0 +1,1 @@
+Implementing distributed applications is significantly more challenging than implementing equivalent local ones, for several reasons. We'll examine a number of them in turn, and explain how they can be dealt with in Cell. We'll start with the most obvious and labor-intensive ones: the need to persist and replicate information across a network.

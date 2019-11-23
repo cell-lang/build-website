@@ -8,13 +8,13 @@
   WaterSensor();
 
   <span class='k'>void</span> setInput(<span class='m'>Input</span> input, <span class='m'>String</span> value);
-  <span class='m'>Value</span> readOutput(<span class='m'>Output</span> output);
+  <span class='m'>String</span> readOutput(<span class='m'>Output</span> output);
 
   <span class='k'>void</span> setElapsedMillisecs(<span class='b'>int</span>);
   <span class='k'>void</span> setElapsedSecs(<span class='b'>int</span>);
 
   <span class='b'>boolean</span> apply();
-  <span class='m'>Value</span> readState();
+  <span class='m'>String</span> readState();
   <span class='k'>void</span> setState(<span class='m'>String</span>);
 
   <span class='m'>Output</span>[] changedOutputs;

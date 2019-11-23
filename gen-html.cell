@@ -15,10 +15,10 @@
 B* scanl(A* xs, B y0, (B A -> B) f) {
   y = y0;
   res = ();
-  for x <- xs:
+  for x <- xs {
     y = f(y, x);
     res = (res | y);
-  ;
+  }
   return res;
 }
 
@@ -26,9 +26,8 @@ B* scanl(A* xs, B y0, (B A -> B) f) {
 //   return () if xs == ();
 //   px = f(rat(xs, 0));
 //   res = (px);
-//   for i = 1..|xs|:
+//   for i = 1..|xs|
 //     res = (res | g(px, rat(xs, i)));
-//   ;
 //   return reverse(res);
 // }
 
@@ -36,10 +35,10 @@ B* scanl(A* xs, B y0, (B A -> B) f) {
 B* scanr(A* xs, B y0, (B A -> B) f) {
   y = y0;
   res = ();
-  for i < |xs|:
+  for i < |xs| {
     y = f(y, rat(xs, i));
     res = (res | y);
-  ;
+  }
   return reverse(res);
 }
 
@@ -48,13 +47,13 @@ Nat* offsets(T* xs) {
   return () if xs == ();
   px = xs(0);
   res = (0);
-  for i = 1..|xs|:
+  for i = 1..|xs| {
     x = xs(i);
-    if x != px:
+    if x != px {
       res = (res | i);
       px = x;
-    ;
-  ;
+    }
+  }
   return res;
 }
 
@@ -65,41 +64,37 @@ B* mapsr(A* xs, A y, (A A -> B) f) = (
 
 
 Maybe[Nat] indexl(A x, A* ys) {
-  for y @ i <- ys:
+  for y @ i <- ys
     return just(i) if y == x;
-  ;
   return nothing;
 }
 
 
 Nat countl(A* xs, (A -> Bool) p) {
-  for x @ i <- xs:
+  for x @ i <- xs
     return i if not p(x);
-  ;
   return |xs|;
 }
 
 
 Nat countr(A* xs, (A -> Bool) p) {
-  for i = 0..|xs|:
+  for i = 0..|xs| {
     x = rat(xs, i);
     return i if not p(x);
-  ;
+  }
   return |xs|;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 
-Nat* indexes(String str, String substr) {
+Nat* substrs_idxs(String str, String substr) {
   chs = chars(str);
   schs = chars(substr);
   slen = |schs|;
   idxs = ();
-  for i = 0 ... |chs| - slen:
-    if slice(chs, i, slen) == schs:
+  for i = 0 ... |chs| - slen
+    if slice(chs, i, slen) == schs
       idxs = (idxs | i);
-    ;
-  ;
   return idxs;
 }
 
@@ -109,14 +104,15 @@ Bool is_prefix(String prefix, String str) =
 
 
 String replace_tabs(String str) {
+  chs : Nat*;
+
   chs = ();
-  for ch <- chars(str):
-    if ch == ascii_tab:
-      chs = (chs | ascii_space, ascii_space);
+  for ch <- chars(str) {
+    if ch == `\t`
+      chs = (chs | ` `, ` `);
     else
       chs = (chs | ch);
-    ;
-  ;
+  }
   return string(chs);
 }
 
@@ -133,7 +129,7 @@ String* lines(String str) {
   return (string(l) : l <- split_lines(chars(str)));
 
   Nat** split_lines(Nat* chs) {
-    return (rem_trail_cr(l) : l <- split(chs, ascii_newline));
+    return (rem_trail_cr(l) : l <- split(chs, `\n`));
   }
 
   Nat* rem_trail_cr(Nat* line) {
@@ -149,10 +145,10 @@ type LineContext  = start, main_title, title, text, code, list, empty(Nat), inva
 
 
 LineType line_type(String line) =
-  if   line == ""               then :empty
-  elif is_prefix("  ", line)    then :indented
-  elif is_prefix("** ", line)   then :marked
-                                else :text;
+  if line == ""             then :empty    else
+  if is_prefix("  ", line)  then :indented else
+  if is_prefix("** ", line) then :marked   else
+                                 :text;
 
 
 LineContext next_ctx(LineContext prev_ctx, (LineType, Maybe[Nat]) line_type) =
@@ -165,7 +161,7 @@ LineContext next_ctx(LineContext prev_ctx, (LineType, Maybe[Nat]) line_type) =
   code,         (empty,    ca?)   = if ca == just(1) then :code else :empty(0),
   list,         (marked,   _  )   = :list,
   list,         (empty,    _  )   = :empty(0),
-  empty(n?),    (text,     _  )   = if n == 0 then :text elif n == 1 then :title else :main_title,
+  empty(n?),    (text,     _  )   = if n == 0 then :text else if n == 1 then :title else :main_title,
   empty(n?),    (empty,    _  )   = :empty(nat(n+1)),
   empty(0 | 1), (indented, _  )   = :code,
   empty(0 | 1), (marked,   _  )   = :list,
@@ -197,10 +193,12 @@ Bool is_keyword(Symbol symb, Nat idx) {
     :assert,
     :break,
     :delete,
+    :do,
     :elapsed,
     :elif,
     :else,
     :every,
+    :external,
     :fail,
     false,
     :for,
@@ -216,12 +214,14 @@ Bool is_keyword(Symbol symb, Nat idx) {
     :print,
     :protocol,
     :reactive,
+    :rebase,
     :return,
     :sans,
     :schema,
-    :self,
     :since,
+    :super,
     :then,
+    :this,
     true,
     :type,
     :typevar,
@@ -235,25 +235,27 @@ Bool is_keyword(Symbol symb, Nat idx) {
 }
 
 
-Maybe[String] token_color(PlainToken token, Nat idx) =
+Maybe[String] token_color(PlainToken token, Nat idx, String line) =
   lowercase_id(s?)      = if is_keyword(s, idx) then just("k") else nothing,
   mixedcase_id(s?)      = just("m"),
   uppercase_id(s?)      = just("u"),
   qualified_symbol(s?)  = just("a"),
   string()              = just("s"),
-  <*..*>                |
+  date()                |
+  time()                = just("t"),
+  <*..*>                = if line[idx] == `\`` then just("t") else just("n"),
   float_lit()           |
   nanoseconds()         = just("n"),
   _                     = nothing;
 
 
 String escape_html(String str) {
-  return string(join((if html_codes(ch, *) then chars(html_codes(ch, !!)) else (ch) : ch <- chars(str))));
+  return string(join((if html_codes(ch, _) then chars(html_codes(ch, !)) else (ch) : ch <- chars(str))));
 
   [Nat -> String] html_codes = [
-    ascii_lower     -> "&lt;",
-    ascii_greater   -> "&gt;",
-    ascii_ampersand -> "&amp;"
+    `<` -> "&lt;",
+    `>` -> "&gt;",
+    `&` -> "&amp;"
   ];
 }
 
@@ -266,37 +268,38 @@ implicit files_content : [String -> String] {
     tokens = get_result(lex_res);
 
     sections = ();
-    for t @ i <- tokens:
-      if i == 0:
+    for t @ i <- tokens {
+      if i == 0 {
         prefix = substr(line, 2, t.offset-2);
-      else
+      }
+      else {
         prev_token = tokens(i-1);
         prefix_offset = prev_token.offset + prev_token.length;
         prefix_length = t.offset - prefix_offset;
         prefix = substr(line, prefix_offset, prefix_length);
-      ;
-      color = token_color(t.token, i);
+      }
+      color = token_color(t.token, t.offset, line);
       text = escape_html(substr(line, t.offset, t.length));
-      if color != nothing:
+      if color != nothing
         text = "<span class='" & value(color) & "'>" & text & "</span>";
-      ;
       sections = (sections | escape_html(prefix), text);
-    ;
+    }
 
     len = length(line);
-    if tokens != ():
+    if tokens != () {
       token = last(tokens);
       tail_idx = token.offset + token.length;
+    }
     else
       tail_idx = min(len, 2);
-    ;
     tail = substr(line, tail_idx, len - tail_idx);
     tail_len = length(tail);
 
     cmt_idx = min(
-      at(indexes(tail, "//"), 0, tail_len),
-      at(indexes(tail, "##"), 0, tail_len)
+      at(substrs_idxs(tail, "//"), 0, tail_len),
+      at(substrs_idxs(tail, "##"), 0, tail_len)
     );
+
     ws = escape_html(substr(tail, 0, cmt_idx));
     cmt = process_inline_code(substr(tail, cmt_idx, tail_len - cmt_idx), false);
     sections = (sections | ws, "<span class='c'>" & cmt & "</span>") if cmt != "";
@@ -321,9 +324,10 @@ implicit files_content : [String -> String] {
     return header & html_lines & footer;
   }
 
+
   String process_inline_code(String line, Bool insert_box) {
-    opens = indexes(line, "{{");
-    closes = indexes(line, "}}");
+    opens = substrs_idxs(line, "{{");
+    closes = substrs_idxs(line, "}}");
     assert |opens| == |closes|;
     blocks = zip(opens, closes);
     strs = ({
@@ -344,17 +348,33 @@ implicit files_content : [String -> String] {
   }
 
 
+  String process_text_fragment(String line) {
+    opens = substrs_idxs(line, "{<{");
+    closes = substrs_idxs(line, "}>}");
+    assert |opens| == |closes|;
+    blocks = zip(opens, closes);
+    strs = ({
+      p = if i == 0 then 0 else right(blocks(i-1)) + 3;
+      text = substr(line, p, l-p);
+      raw_html = substr(line, l+3, r-l-3);
+      return process_inline_code(text, true) & raw_html;
+    } : l, r @ i <- blocks);
+    i = if closes != () then last(closes) + 3 else 0;
+    return append((strs | process_inline_code(substr(line, i, length(line) - i), true)));
+  }
+
+
   String process_includes(String line) {
-    opens = indexes(line, "{#{");
-    closes = indexes(line, "}#}");
+    opens = substrs_idxs(line, "{#{");
+    closes = substrs_idxs(line, "}#}");
     assert |opens| == |closes|;
     blocks = zip(opens, closes);
     strs = ({
       p = if i == 0 then 0 else right(blocks(i-1)) + 3;
       text = substr(line, p, l-p);
       fname = substr(line, l+3, r-l-3);
-      assert files_content(fname, *);
-      return text & files_content(fname, !!);
+      assert files_content(fname, _);
+      return text & files_content(fname, !);
     } : l, r @ i <- blocks);
     i = if closes != () then last(closes) + 3 else 0;
     return append((strs | substr(line, i, length(line) - i)));
@@ -362,7 +382,7 @@ implicit files_content : [String -> String] {
 
 
   String process_directives(String text) {
-    text_1 = process_inline_code(text, true);
+    text_1 = process_text_fragment(text);
     return process_includes(text_1);
   }
 
@@ -385,20 +405,6 @@ implicit files_content : [String -> String] {
     contexts    = scanl(zip(types, code_ahead), :start, next_ctx);
     err_idx     = indexl(:invalid, contexts);
     assert err_idx == nothing;
-    if err_idx != nothing:
-      print "-------------------------------";
-      print "input_text";
-      print input_text;
-      print "lines";
-      print lines;
-      print "types";
-      print types;
-      print "code_ahead";
-      print code_ahead;
-      print "contexts";
-      print contexts;
-      fail;
-    ;
     return failure(value(err_idx)) if err_idx != nothing;
     offsets     = offsets(contexts);
     lengths     = mapsr(offsets, |contexts|, $b - $a);
@@ -417,7 +423,6 @@ implicit files_content : [String -> String] {
 
 
 [String] embeddable_files = [
-  "mine-pump.svg",
   "cpp/switch.html",
   "cpp/conv-in.html",
   "cpp/conv-out.html",
@@ -457,13 +462,28 @@ implicit files_content : [String -> String] {
   "code/water-sensor-cs.html",
   "code/water-sensor-client-cs.html",
 
+  "code/readstate-setstate.html",
+  "code/load-save.html",
+
   "tables/benchmark-results.html",
+  "tables/imdb-loading.html",
+  "tables/imdb-loading-no-gc.html",
+  "tables/imdb-updates.html",
+  "tables/imdb-queries.html",
+  "tables/imdb-updates-queries.html",
+  "tables/imdb-loading-dualcore.html",
+  "tables/imdb-updates-dualcore.html",
+  "tables/imdb-queries-dualcore.html",
+  "tables/imdb-updates-queries-dualcore.html",
+  "tables/imdb-loading-embedded.html",
+  "tables/imdb-queries-embedded.html",
+  "tables/imdb-updates-embedded.html",
+  "tables/imdb-updates-queries-embedded.html",
 
   "java/data-conversion.html",
   "java/interface-type-example.html",
-  "java/value.html",
-  "java/value-methods.html",
   "java/counter.html",
+  "java/counter-interface-new.html",
   "java/set-state.html",
   "java/supply.html",
   "java/supply-methods-A.html",
@@ -483,131 +503,109 @@ implicit files_content : [String -> String] {
 ];
 
 
-[String -> String] embedded_files = [
-  "overview-link" -> "<a href='overview.html'>overview</a>",
-  "quick-link" -> "<a href='quick.html'>quick overview</a>",
-  "faq-link" -> "<a href='faq.html'>FAQ</a>",
-  "example-link" -> "<a href='example.html'>example</a>",
-  "example-link-2" -> "<a href='example.html'>introduction/tutorial</a>",
-  "comparison-link" -> "<a href='comparison.html'>here</a>",
-  "comparison-link-2" -> "<a href='comparison.html'>comparison with OOP</a>",
-  "data-link" -> "<a href='data.html'>data</a>",
-  "types-link" -> "<a href='types.html'>types</a>",
-  "functions-link" -> "<a href='functions.html'>functions</a>",
-  "relational-link" -> "<a href='relational.html'>relational automata</a>",
-  "updates-link" -> "<a href='updates.html'>state updates</a>",
-  "relations-link" -> "<a href='relations.html'>Why relations are better than objects</a>",
-  "benchmarks-link" -> "<a href='benchmarks.html'>here</a>",
-
-  "download-java-link" -> "<a href='cellc-java.zip'>Java</a>",
-  "download-cpp-linux-link" -> "<a href='cellc-cpp-linux.zip'>C++ (Linux)</a>",
-  "download-csharp-link" -> "<a href='cellc-cs.zip'>C#</a>",
-
-  "src-repos-link" -> "<a href='https://github.com/cell-lang'>github</a>",
-  "google-group-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>cell-lang</a>",
-  "forum-link" -> "<a href='https://groups.google.com/d/forum/cell-lang'>forum</a>",
-  "twitter-link" -> "<a href='https://twitter.com/cell_lang'>cell_lang</a>",
-  "binary-relation-link" -> "<a href='https://en.wikipedia.org/wiki/Binary_relation'>binary</a>",
-  "relation-link" -> "<a href='https://en.wikipedia.org/wiki/Finitary_relation'>n-ary</a>",
-  "online-forum-state-link" -> "<a href='online-forum-state.txt'>state</a>",
-  "reactive-automata-link" -> "<a href='reactive.html'>chapter</a>",
-  "reactive-automata-link-2" -> "<a href='reactive.html'>reactive automata</a>",
-  "csharp-interface-link" -> "<a href='interface-cs.html'>Interfacing with C#</a>",
-  "getting-started-link" -> "<a href='getting-started.html'>Getting started</a>",
-  "java-interface-link" -> "<a href='interface-java.html'>Interfacing with Java</a>",
-  "java-interface-link-2" -> "<a href='interface-java.html'>Java</a>",
-
-  "release-notes-01-link" -> "<a href='csharp-code-generator-0.1.html'>Cell &#x279e; C# compiler</a>",
-  "release-notes-02-link" -> "<a href='java-code-generator-0.1.html'>Cell &#x279e; Java compiler</a>",
-  "release-notes-03-link" -> "<a href='java-code-generator-0.2.html'>Cell &#x279e; Java compiler</a>",
-
-  "right-arrow" -> "&#x279e;", // "&rarr;"
-  "sub-1" -> "<sub>1</sub>",
-  "sub-2" -> "<sub>2</sub>",
-
-  "n-body-link" -> "<a href='n-body.cell'>n-body</a>",
-  "spectral-norm-link" -> "<a href='spectral-norm.cell'>spectral-norm</a>",
-  "binary-trees-link" -> "<a href='binary-trees.cell'>binary-trees</a>",
-  "n-body-java-fn-link" -> "<a href='n-body-fn.java'>code</a>",
-
-  "network-model-link" -> "<a href='https://github.com/cell-lang/network-model'>here</a>",
-
-  "the-elm-architecture-link" ->
-    "<a href='https://guide.elm-lang.org/architecture/'> The Elm Architecture</a>",
-  "adt-link" -> "<a href='https://en.wikipedia.org/wiki/Algebraic_data_type'>algebraic data types</a>",
-  "benchmark-game-link" ->
-    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/'>The Computer Language Benchmarks Game</a>",
-  "benchmarks-list-link" ->
-    "<a href='https://benchmarksgame-team.pages.debian.net/benchmarksgame/description/summary.html'>here</a>",
-  "pure-function-link" -> "<a href='https://en.wikipedia.org/wiki/Pure_function'>pure functions</a>",
-  "out-of-the-tar-pit-links" ->
-    "<a href='https://www.google.com/search?q=out+of+the+tar+pit'>Out of the Tar Pit</a>",
-  "pointer-aliasing-link" ->
-    "<a href='https://en.wikipedia.org/wiki/Pointer_aliasing'>pointer aliasing</a>",
-  "reactive-wikipedia-link" ->
-    "<a href='https://en.wikipedia.org/wiki/Reactive_programming'>reactive</a>",
-  "funct-reactive-wikipedia-link" ->
-    "<a href='https://en.wikipedia.org/wiki/Functional_reactive_programming'>functional reactive</a>",
-  "mythical-man-month-link" ->
-    "<a href='https://en.wikipedia.org/wiki/The_Mythical_Man-Month'>The Mythical Man Month</a>",
-  "value-of-values-link" ->
-    "<a href='https://www.youtube.com/watch?v=-6BsiVyC1kM'>The Value of Values</a>",
-  "reactivex-link" -> "<a href='http://reactivex.io/'>ReactiveX</a>",
-  "greenspun-link" ->
-    "<a href='https://en.wikipedia.org/wiki/Greenspun%27s_tenth_rule'>ad-hoc, informally-specified, bug-ridden, slow implementation</a>",
-  "crud-link" -> "<a href='https://en.wikipedia.org/wiki/Create,_read,_update_and_delete'>CRUD</a>"
-];
-
-
 Int Main(String* args) {
-  if |args| == 2:
+  if |args| == 2 {
     input_file, html_output_file = args;
     code_output_file = nothing;
-  elif |args| == 3:
+  }
+  else if |args| == 3 {
     input_file, html_output_file, code_output_file = args;
     code_output_file = just(code_output_file);
-  else
+  }
+  else {
     Print("Usage: make-html <input file> <html output file> <code output file>\n");
     return 1;
-  ;
+  }
 
   files_content = [];
-  for f <- _isort_(embeddable_files):
+  for f <- _isort_(embeddable_files) {
     res = FileRead(f);
-    if res == nothing:
+    if res == nothing {
       Print("Could not read file " & f & "\n");
       return 1;
-    ;
+    }
     files_content = files_content & [f -> string(value(res))];
-  ;
-
-  files_content = files_content & embedded_files;
+  }
 
   res = FileRead(input_file);
-  if res == nothing:
+  if res == nothing {
     Print("Could not read file " & input_file & "\n");
     return 1;
-  ;
+  }
+  bytes = value(res);
+  res = utf8_decode(bytes);
+  if failed(res) {
+    Print("Conversion to UTF-8 failed\n");
+    print res;
+    return 1;
+  }
+  str = string(result(res));
 
-
-  res = make_html_and_code(string(value(res)), files_content=files_content);
-  if is_failure(res):
+  res = make_html_and_code(str, files_content=files_content);
+  if is_failure(res) {
     Print("Could not generate HTML output\n");
     return 1;
-  ;
+  }
 
   html, code = (chars(s) : s <- get_result(res));
 
-  ok = FileWrite(html_output_file, html);
-  if code_output_file != nothing:
-    ok = FileWrite(value(code_output_file), code);
-    if not ok:
+  ok = FileWrite(html_output_file, value_unsafe(utf8_encode(html)));
+  if code_output_file != nothing {
+    ok = FileWrite(value(code_output_file), value_unsafe(utf8_encode(code)));
+    if not ok {
       Print("Could not write file " & value(code_output_file));
       return 1;
-    ;
-  ;
+    }
+  }
 
   return 0;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+T* sort_set([T] s, (T T -> Bool) lt) = sort(rand_sort(s), lt);
+
+T* sort(T* s, (T T -> Bool) lt) = mergesort(s, lt);
+
+T* mergesort(T* seq, (T T -> Bool) lt) {
+  len = |seq|;
+  return seq if len <= 1;
+  ss = ((x) : x <- seq);
+  while len > 1 {
+    nss = ();
+    idx = 0;
+    ## BAD BAD BAD DOESN'T WORK WELL WITH A ROPE
+    while len > idx+1 {
+      nss = (merge(ss(idx), ss(idx+1), lt)) & nss;
+      idx = idx + 2;
+    }
+    assert idx == |ss| or idx == |ss| - 1;
+    ss  = if len > idx then (ss(idx)) & nss else nss;
+    len = |ss|; ## SHOULD BE len = (len + 1) / 2;
+  }
+  return ss(0);
+
+
+  T* merge(T* seq1, T* seq2, (T T -> Bool) lt) {
+    l1 = |seq1|;
+    l2 = |seq2|;
+    rs = ();
+    i1 = 0;
+    i2 = 0;
+    while i1 < l1 or i2 < l2 {
+      if i1 == l1 or (i2 < l2 and lt(seq2(i2), seq1(i1))) {
+        rs = (seq2(i2)) & rs;
+        i2 = i2 + 1;
+      }
+      else {
+        rs = (seq1(i1)) & rs;
+        i1 = i1 + 1;
+      }
+    }
+    assert i1 <= l1 and i2 <= l2;
+    return reverse(rs);
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -620,12 +618,11 @@ type Operator = UnaryOperator, BinaryOperator;
 
 type FloatLit = float_lit(mantissa: <0..9>+, negative: Bool, dec_exp: Int);
 
-type BuiltIn  = neg, add, sub, mult, div, mod, lt, le, gt, ge,
-                fneg, fadd, fsub, fmult, fdiv, fsqrt, floor, ceiling, float, mantissa, dec_exp,
-                str, symb, isort,
-                slice, cat, rev, tag, untag, parse, print,
-                rand_nat, rand_elem, counter, ticks,
-                bits;
+type BuiltIn  = neg, add, sub, mult, div, mod, lt, le, and, or, xor,
+                fneg, fadd, fsub, fmult, fdiv, flt, fle, fexp, fsqrt,
+                floor, ceiling, float, bits, mantissa, dec_exp,
+                isort, slice, cat, rev, tag, untag, insert, remove, put, drop, parse, print,
+                rand_nat, rand_elem, counter, ticks;
 
 ////////////////////////////////////////////////////////////////////////////////
 

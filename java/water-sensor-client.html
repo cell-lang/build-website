@@ -16,7 +16,7 @@ waterSensor.setElapsedMillisecs(<span class='n'>100</span>);
   <span class='c'>// if countinuous or have been activated if discrete</span>
   <span class='k'>for</span> (<span class='m'>WaterSensor</span>.<span class='m'>Output</span> outputId : waterSensor.changedOutputs) {
     <span class='c'>// Reading the value of the changed output</span>
-    <span class='m'>Value</span> outputValue = waterSensor.readOutput(outputId);
+    <span class='m'>String</span> outputValue = waterSensor.readOutput(outputId);
 
     <span class='c'>// Now time to do something with the value of the output</span>
     ...

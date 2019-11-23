@@ -1,16 +1,22 @@
 <figure class="highlight"><section><pre><code><span class='c'>// Creating an instance of OnlineForum</span>
-OnlineForum onlineForum = new OnlineForum();
+<span class='m'>OnlineForum</span> onlineForum = new <span class='m'>OnlineForum</span>();
 
-<span class='c'>// Reading and setting the initial state for the automaton</span>
-Path inputFile = Paths.get(<span class='s'>&quot;initial-state.txt&quot;</span>);
-onlineForum.setState(new String(Files.readAllBytes(inputFile)));
+<span class='c'>// Loading the initial state from a file</span>
+<span class='k'>try</span> (<span class='m'>FileReader</span> reader = new <span class='m'>FileReader</span>(<span class='s'>&quot;initial-state.txt&quot;</span>)) {
+  onlineForum.load(reader);
+}
 
 <span class='c'>// Sending a message</span>
 onlineForum.execute(<span class='s'>&quot;delete_user(id: user_id(5))&quot;</span>);
 
+<span class='c'>// An equivalent but faster way of sending the exact same message</span>
+<span class='c'>// onlineForum.delete_user(5);</span>
+
 <span class='c'>// Writing the new state to a file</span>
-try (FileWriter writer = new FileWriter(<span class='s'>&quot;final-state.txt&quot;</span>)) {
-  onlineForum.readState().print(writer);
+<span class='k'>try</span> (<span class='m'>FileWriter</span> writer = new <span class='m'>FileWriter</span>(<span class='s'>&quot;final-state.txt&quot;</span>)) {
+  onlineForum.save(writer);
 }
 </code></pre></section></figure>
+
+
 

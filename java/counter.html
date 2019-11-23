@@ -3,9 +3,15 @@
 <span class='k'>class</span> <span class='m'>Counter</span> {
   Counter();
 
-  <span class='m'>Value</span> readState();
-  <span class='b'>void</span> setState(<span class='m'>String</span> newState);
+  <span class='b'>void</span> load(<span class='m'>Reader</span> writer);
+  <span class='b'>void</span> save(<span class='m'>Writer</span> reader);
+
   <span class='b'>void</span> execute(<span class='m'>String</span> message);
+
+  <span class='b'>void</span> incr();
+  <span class='b'>void</span> decr();
+  <span class='b'>void</span> reset();
+  <span class='b'>void</span> reset(<span class='b'>long</span>);
 
   <span class='b'>long</span> value();
   <span class='b'>long</span> updates();

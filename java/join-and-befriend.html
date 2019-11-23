@@ -1,8 +1,8 @@
 <figure class="highlight"><section><pre><code><span class='k'>class</span> <span class='m'>User</span> {
   ... <span class='c'>// Same as before</span>
 
-  <span class='k'>public</span> <span class='k'>void</span> join(<span class='m'>Group</span> group, <span class='m'>LocalDate</span> date, <span class='k'>int</span> rank) {
-    <span class='m'>Membership</span> membership = <span class='k'>new</span> <span class='m'>Membership</span>(<span class='k'>this</span>, group, date, rank);
+  <span class='k'>public</span> <span class='k'>void</span> join(<span class='m'>Group</span> group, <span class='m'>LocalDate</span> date) {
+    <span class='m'>Membership</span> membership = <span class='k'>new</span> <span class='m'>Membership</span>(<span class='k'>this</span>, group, date);
     memberships.add(membership);
     group.addMembership(membership);
   }
@@ -21,4 +21,26 @@
     memberships.add(membership);
   }
 }
+<!--
+<span class='k'>class</span> <span class='m'>Membership</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='m'>MemberShip</span>(<span class='m'>Member</span> user, <span class='m'>Group</span> group, <span class='m'>LocalDate</span> joinedOn, <span class='b'>int</span> karma) {
+    this.user = user;
+    this.group = group;
+    this.joinedOn = joinedOn;
+    this.karma = karma;
+  }
+}
+
+<span class='k'>class</span> <span class='m'>Friendship</span> {
+  ... <span class='c'>// Same as before</span>
+
+  <span class='k'>public</span> <span class='m'>Frienship</span>(<span class='m'>User</span> user1, <span class='m'>User</span> user2, <span class='m'>LocalDate</span> since) {
+    this.user1 = user1;
+    this.user2 = user2;
+    this.since = since;
+  }
+}
+ -->
 </code></pre></section></figure>

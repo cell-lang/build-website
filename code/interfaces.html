@@ -3,62 +3,16 @@
 <span class='k'>class</span> <span class='m'>OnlineForum</span> {
   <span class='m'>OnlineForum</span>();
 
-  <span class='m'>Value</span> readState();
-  <span class='k'>void</span> setState(<span class='m'>String</span>);
-  <span class='k'>void</span> execute(<span class='m'>String</span>);
+  <span class='b'>void</span> load(<span class='m'>Reader</span> writer);
+  <span class='b'>void</span> save(<span class='m'>Writer</span> reader);
 
-  <span class='k'>long</span> nextId();
+  <span class='b'>void</span> execute(<span class='m'>String</span>);
 
-  <span class='k'>boolean</span> user(<span class='k'>long</span>);
-  <span class='k'>long</span>[] user();
+  <span class='b'>void</span> addUser(<span class='b'>long</span> id, <span class='m'>String</span> username, <span class='m'>LocalDate</span> signupDate, <span class='m'>String</span> firstName, <span class='m'>String</span> lastName);
+  <span class='b'>void</span> addUser(<span class='b'>long</span> id, <span class='m'>String</span> username, <span class='m'>LocalDate</span> signupDate, <span class='m'>String</span> firstName, <span class='m'>String</span> lastName, <span class='m'>LocalDate</span> dateOfBirth);
+  <span class='b'>void</span> deleteUser(<span class='b'>long</span> id);
 
-  <span class='k'>boolean</span> chatGroup(<span class='k'>long</span>);
-  <span class='k'>long</span>[] chatGroup();
-
-  <span class='k'>boolean</span> username(<span class='k'>long</span>, <span class='m'>String</span>);
-  <span class='m'>String</span> username(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; username();
-
-  <span class='k'>boolean</span> signupDate(<span class='k'>long</span>, <span class='m'>Date</span>);
-  <span class='m'>Date</span> signupDate(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; signupDate();
-
-  <span class='k'>boolean</span> firstName(<span class='k'>long</span>, <span class='m'>String</span>);
-  <span class='m'>String</span> firstName(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; firstName();
-
-  <span class='k'>boolean</span> lastName(<span class='k'>long</span>, <span class='m'>String</span>);
-  <span class='m'>String</span> lastName(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; lastName();
-
-  <span class='k'>boolean</span> dateOfBirth(<span class='k'>long</span>, <span class='m'>Date</span>);
-  <span class='m'>Date</span> dateOfBirth(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; dateOfBirth();
-
-  <span class='k'>boolean</span> name(<span class='k'>long</span>, <span class='m'>String</span>);
-  <span class='m'>String</span> name(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='m'>String</span>[]&gt; name();
-
-  <span class='k'>boolean</span> admin(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='k'>long</span> admin(<span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; admin();
-
-  <span class='k'>boolean</span> member(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; member();
-
-  <span class='k'>boolean</span> joinedOn(<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Date</span>);
-  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; joinedOn();
-
-  <span class='k'>boolean</span> karma(<span class='k'>long</span>, <span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='k'>long</span>[]&gt; karma();
-
-  <span class='k'>boolean</span> friends(<span class='k'>long</span>, <span class='k'>long</span>);
-  <span class='m'>Pair</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[]&gt; friends();
-
-  <span class='k'>boolean</span> since(<span class='k'>long</span>, <span class='k'>long</span>, <span class='m'>Date</span>);
-  <span class='m'>Triplet</span>&lt;<span class='k'>long</span>[], <span class='k'>long</span>[], <span class='m'>Date</span>[]&gt; since();
-
-  <span class='m'>String</span> fullName(<span class='k'>long</span>);
-  <span class='k'>long</span>[] usersWhoSignedUpOn(<span class='m'>Date</span>);
+  <span class='m'>String</span> fullName(<span class='b'>long</span> u);
+  <span class='b'>long</span>[] usersWhoSignedUpOn(<span class='m'>LocalDate</span> d);
 }
 </code></pre></section></figure>

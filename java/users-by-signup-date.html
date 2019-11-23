@@ -13,7 +13,7 @@
     usersBySignupDate.put(user.signupDate, user);
   }
 
-  <span class='k'>public</span> <span class='k'>void</span> remove(<span class='m'>Person</span> person) {
+  <span class='k'>public</span> <span class='k'>void</span> remove(<span class='m'>User</span> user) {
     <span class='k'>if</span> (users.remove(user)) {
       user.delete();
       usersBySignupDate.remove(user.signupDate, user);

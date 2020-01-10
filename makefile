@@ -4,7 +4,7 @@ website:
 	@rm -rf ../cell-lang.github.io/*.zip
 	@rm -rf ../cell-lang.github.io/*.svg
 	@cp fonts.css main.css ../cell-lang.github.io/
-	@cp cellc-cpp-linux.zip cellc-java.zip cellc-cs.zip ../cell-lang.github.io/
+	@cp cellc-java.zip cellc-cs.zip cellc-cs-win.zip ../cell-lang.github.io/
 	@cp imdb.svg mine-pump-2.svg mine-pump.svg ../cell-lang.github.io/
 	@cp count-eval.svg norm-eval.svg prod-eval.svg sum-eval.svg ../cell-lang.github.io/
 	@cp network-architecture-?.svg ../cell-lang.github.io/
@@ -49,14 +49,14 @@ website:
 	@make -s release-notes-09
 
 
-cellc-cpp-linux.zip:
-	cd ../download/cpp/ ; zip -r ../../build-website/cellc-cpp-linux.zip *
+# cellc-cpp-linux.zip:
+# 	cd ../download/cpp/ ; zip -r ../../build-website/cellc-cpp-linux.zip *
 
 cellc-java.zip:
-	cd ../download/java/ ; zip -r ../../build-website/cellc-java.zip *
+	cd ../downloads/java/ ; zip -r ../../build-website/cellc-java.zip *
 
 cellc-cs.zip:
-	cd ../download/csharp/ ; zip -r ../../build-website/cellc-cs.zip *
+	cd ../downloads/csharp/ ; zip -r ../../build-website/cellc-cs.zip *
 
 # gen-html: gen-html.cell
 # 	@rm -f generated.cpp gen-html

@@ -16,34 +16,43 @@
     <td>bool</td>
   </tr>
   <tr>
-    <td>Symbol</td>
-    <td>string</td>
-  </tr>
-  <tr>
     <td>String</td>
     <td>string</td>
   </tr>
   <tr>
-    <td>(T1, T2, ...)</td>
-    <td>Tuple&lt;T1', T2', ...&gt;</td>
+    <td>Date</td>
+    <td>DateTime</td>
+  </tr>
+  <tr>
+    <td>Time</td>
+    <td>DateTime</td>
   </tr>
   <tr>
     <td>T*</td>
-    <td>T'[]</td>
+    <td>T[]</td>
   </tr>
   <tr>
     <td>[T]</td>
-    <td>T'[]</td>
+    <td>T[]</td>
   </tr>
   <tr>
-    <td>[T1, T2]</td>
-    <td>Tuple&lt;T1', T2'&gt;[]</td>
+    <td>(T1, T2, ..)</td>
+    <td>(T1, T2, ..)</td>
   </tr>
   <tr>
-    <td>[T1, T2, T3]</td>
-    <td>Tuple&lt;T1', T2', T3'&gt;[]</td>
+    <td>(field1: T1, field2: T2, ...)</td>
+    <td>(T1 field1, T2 field2, ...)</td>
+  </tr>
+  <tr>
+    <td>[K -> V]</td>
+    <td>Dictionary&lt;K, V&gt;</td>
   </tr>
   <tr>
     <td>any_tag(T)</td>
-    <td>T'</td>
+    <td>T</td>
+  </tr>
+  <tr>
+    <td>Maybe[T]</td>
+    <td>T / null</td>
+  </tr>
 </table>

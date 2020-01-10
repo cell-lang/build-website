@@ -218,6 +218,7 @@ Bool is_keyword(Symbol symb, Nat idx) {
     :return,
     :sans,
     :schema,
+    :set,
     :since,
     :super,
     :then,
@@ -448,7 +449,6 @@ implicit files_content : [String -> String] {
   "code/using-online-forum.html",
   "code/online-forum-tables.html",
 
-  "code/data-conversion.html",
   "code/value-cs.html",
   "code/value-methods-cs.html",
   "code/counter-cs.html",
@@ -479,6 +479,16 @@ implicit files_content : [String -> String] {
   "tables/imdb-queries-embedded.html",
   "tables/imdb-updates-embedded.html",
   "tables/imdb-updates-queries-embedded.html",
+
+  "csharp/data-conversion.html",
+  "csharp/interface-type-example.html",
+  "csharp/counter.html",
+  "csharp/switch.html",
+  "csharp/switch-client-cs-A.html",
+  "csharp/switch-client-cs-B.html",
+  "csharp/switch-client-cs-C.html",
+  "csharp/water-sensor.html",
+  "csharp/water-sensor-client.html",
 
   "java/data-conversion.html",
   "java/interface-type-example.html",
@@ -620,7 +630,7 @@ type FloatLit = float_lit(mantissa: <0..9>+, negative: Bool, dec_exp: Int);
 
 type BuiltIn  = neg, add, sub, mult, div, mod, lt, le, and, or, xor,
                 fneg, fadd, fsub, fmult, fdiv, flt, fle, fexp, fsqrt,
-                floor, ceiling, float, bits, mantissa, dec_exp,
+                floor, ceiling, float, bits, round,
                 isort, slice, cat, rev, tag, untag, insert, remove, put, drop, parse, print,
                 rand_nat, rand_elem, counter, ticks;
 

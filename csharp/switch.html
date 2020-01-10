@@ -1,0 +1,26 @@
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> <span class='m'>Cell</span>.<span class='m'>Facades</span> {
+  <span class='k'>class</span> <span class='m'>Switch</span> {
+    <span class='k'>enum</span> <span class='m'>Input</span> {SWITCH_ON, SWITCH_OFF};
+
+    <span class='k'>enum</span> <span class='m'>Output</span> {IS_ON};
+
+    <span class='m'>Switch</span>();
+
+    <span class='b'>void</span> SetInput(<span class='m'>Input</span> input, <span class='b'>string</span> value);
+    <span class='b'>string</span> ReadOutput(<span class='m'>Output</span> output);
+
+    <span class='b'>void</span> Apply();
+    <span class='b'>string</span> ReadState();
+    <span class='b'>void</span> SetState(<span class='b'>string</span>);
+
+    <span class='m'>Output</span>[] ChangedOutputs();
+
+    <span class='c'>// Inputs</span>
+    <span class='b'>bool</span> SwitchOn;
+    <span class='b'>bool</span> SwitchOff;
+
+    <span class='c'>// Outputs</span>
+    <span class='b'>bool</span> IsOn;
+  }
+}
+</code></pre></section></figure>

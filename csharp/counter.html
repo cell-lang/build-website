@@ -1,0 +1,24 @@
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> <span class='m'>Cell</span>.<span class='m'>Facades</span> {
+  <span class='k'>class</span> <span class='m'>Counter</span> {
+    Counter();
+
+    <span class='k'>void</span> Load(<span class='m'>Stream</span>);
+    <span class='k'>void</span> Save(<span class='m'>Stream</span>);
+
+    <span class='k'>void</span> Execute(<span class='b'>string</span>);
+
+    <span class='m'>Action</span>&lt;<span class='b'>string</span>&gt; OnSuccess(<span class='b'>string</span>);
+    <span class='m'>Action</span>&lt;<span class='b'>string</span>&gt; OnFailure(<span class='b'>string</span>);
+
+    <span class='c'>// Message handlers</span>
+    <span class='k'>void</span> Incr();
+    <span class='k'>void</span> Decr();
+    <span class='k'>void</span> Reset();
+    <span class='k'>void</span> Reset(<span class='b'>long</span>);
+
+    <span class='c'>// User-defined methods</span>
+    <span class='b'>long</span> Value();
+    <span class='b'>long</span> Updates();
+  }
+}
+</code></pre></section></figure>

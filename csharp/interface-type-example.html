@@ -1,0 +1,44 @@
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> Cell.Facades {
+  <span class='c'>// Point type</span>
+  <span class='k'>class</span> <span class='m'>Point</span> {
+    <span class='b'>long</span> x;
+    <span class='b'>long</span> y;
+  }
+
+  <span class='c'>// Shape type and its subtypes</span>
+  <span class='k'>interface</span> <span class='m'>Shape</span> {
+
+  }
+
+  <span class='k'>class</span> <span class='m'>Square</span> <span class='k'>:</span> <span class='m'>Shape</span> {
+    <span class='b'>long</span> left;
+    <span class='b'>long</span> bottom;
+    <span class='b'>long</span> side;
+  }
+
+  <span class='k'>class</span> <span class='m'>Rectangle</span> <span class='k'>:</span> <span class='m'>Shape</span> {
+    <span class='b'>long</span> left;
+    <span class='b'>long</span> bottom;
+    <span class='b'>long</span> height;
+    <span class='b'>long</span> width;
+  }
+
+  <span class='k'>class</span> <span class='m'>Circle</span> <span class='k'>:</span> <span class='m'>Shape</span> {
+    <span class='m'>Point</span>  center;
+    <span class='b'>double</span> radius;
+  }
+
+  <span class='c'>// List[Shape] and its subtypes</span>
+  <span class='k'>interface</span> <span class='m'>List_Shape</span> {
+
+  }
+
+  <span class='k'>class</span> <span class='m'>EmptyList</span> <span class='k'>:</span> List_Shape {
+    <span class='k'>static</span> <span class='k'>readonly</span> EmptyList singleton;
+  }
+
+  <span class='k'>class</span> <span class='m'>List</span> <span class='k'>:</span> List_Shape {
+    (<span class='m'>Shape</span>, <span class='m'>List_Shape</span>) value;
+  }
+}
+</code></pre></section></figure>

@@ -1,0 +1,14 @@
+<figure class="highlight">
+<section>
+<pre><code><span class='c'>// Setting the value of the two inputs</span>
+switch.SetInput(<span class='m'>Input</span>.<span class='u'>SWITCH_ON</span>, <span class='s'>"true"</span>);
+switch.SetInput(<span class='m'>Input</span>.<span class='u'>SWITCH_OFF</span>, <span class='s'>"false"</span>);
+
+<span class='c'>// Propagating the changes to the inputs</span>
+<span class='c'>// throughout the automaton instance</span>
+switch.Apply();
+
+<span class='c'>// Reading and printing the value of the only output</span>
+string isOn = switch.ReadOutput(<span class='m'>Output</span>.<span class='u'>IS_ON</span>);
+Console.WriteLine(<span class='s'>"is_on = {0}"</span>, isOn);
+</code></pre></section></figure>

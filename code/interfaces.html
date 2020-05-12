@@ -8,8 +8,14 @@
 
   <span class='b'>void</span> execute(<span class='m'>String</span>);
 
-  <span class='b'>void</span> addUser(<span class='b'>long</span> id, <span class='m'>String</span> username, <span class='m'>LocalDate</span> signupDate, <span class='m'>String</span> firstName, <span class='m'>String</span> lastName);
-  <span class='b'>void</span> addUser(<span class='b'>long</span> id, <span class='m'>String</span> username, <span class='m'>LocalDate</span> signupDate, <span class='m'>String</span> firstName, <span class='m'>String</span> lastName, <span class='m'>LocalDate</span> dateOfBirth);
+  <span class='b'>void</span> addUser(
+    <span class='b'>long</span>      id,
+    <span class='m'>String</span>    username,
+    <span class='m'>LocalDate</span> signupDate,
+    <span class='m'>String</span>    firstName,
+    <span class='m'>String</span>    lastName,
+    <span class='m'>LocalDate</span> dateOfBirth
+  );
   <span class='b'>void</span> deleteUser(<span class='b'>long</span> id);
 
   <span class='m'>String</span> fullName(<span class='b'>long</span> u);

@@ -45,8 +45,7 @@ website:
 	@make -s status-roadmap
 	@make -s standard-library
 	@make -s standard-library-miscellanea
-	@make -s release-notes-07
-	@make -s release-notes-09
+	@make -s release-notes-10
 
 
 # cellc-cpp-linux.zip:
@@ -264,14 +263,9 @@ standard-library-miscellanea: gen-html.jar
 	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/standard-library-miscellanea.html
 	@rm -f tmp/out.txt
 
-release-notes-07: gen-html.jar
-	@java -jar gen-html.jar ../docs/release-notes/07-version-0.5.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/java-code-generator-0.5.html
-	@rm -f tmp/out.txt
-
-release-notes-09: gen-html.jar
-	@java -jar gen-html.jar ../docs/release-notes/09-version-0.5.X.txt tmp/out.txt
-	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/java-code-generator-0.5.X.html
+release-notes-10: gen-html.jar
+	@java -jar gen-html.jar ../docs/release-notes/10-version-0.5.4.txt tmp/out.txt
+	@cat header.html tmp/out.txt footer.html > ../cell-lang.github.io/version-0.5.4.html
 	@rm -f tmp/out.txt
 
 test-page: gen-html.jar

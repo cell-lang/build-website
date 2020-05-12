@@ -236,9 +236,9 @@ Bool is_keyword(Symbol symb, Nat idx) {
 }
 
 
-Maybe[String] token_color(PlainToken token, Nat idx, String line) =
+Maybe[String] token_color(PlainToken token, Nat idx, String line, Bool next_is_left_par) =
   lowercase_id(s?)      = if is_keyword(s, idx) then just("k") else nothing,
-  mixedcase_id(s?)      = just("m"),
+  mixedcase_id(s?)      = if next_is_left_par then nothing else just("m"),
   uppercase_id(s?)      = just("u"),
   qualified_symbol(s?)  = just("a"),
   string()              = just("s"),
@@ -279,7 +279,8 @@ implicit files_content : [String -> String] {
         prefix_length = t.offset - prefix_offset;
         prefix = substr(line, prefix_offset, prefix_length);
       }
-      color = token_color(t.token, t.offset, line);
+      next_is_left_par = i < |tokens| - 1 and tokens(i+1).token == left(parenthesis);
+      color = token_color(t.token, t.offset, line, next_is_left_par);
       text = escape_html(substr(line, t.offset, t.length));
       if color != nothing
         text = "<span class='" & value(color) & "'>" & text & "</span>";
@@ -467,11 +468,15 @@ implicit files_content : [String -> String] {
 
   "tables/benchmark-results.html",
   "tables/imdb-loading.html",
+  "tables/imdb-loading-normalized.html",
   "tables/imdb-loading-no-gc.html",
   "tables/imdb-updates.html",
+  "tables/imdb-updates-normalized.html",
   "tables/imdb-queries.html",
+  "tables/imdb-queries-normalized.html",
   "tables/imdb-updates-queries.html",
   "tables/imdb-loading-dualcore.html",
+  "tables/imdb-loading-dualcore-normalized.html",
   "tables/imdb-updates-dualcore.html",
   "tables/imdb-queries-dualcore.html",
   "tables/imdb-updates-queries-dualcore.html",
@@ -481,7 +486,9 @@ implicit files_content : [String -> String] {
   "tables/imdb-updates-queries-embedded.html",
 
   "csharp/data-conversion.html",
-  "csharp/interface-type-example.html",
+  "csharp/typedefs.html",
+  "csharp/canvas-default.html",
+  "csharp/canvas-custom.html",
   "csharp/counter.html",
   "csharp/switch.html",
   "csharp/switch-client-cs-A.html",

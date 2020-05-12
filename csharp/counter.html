@@ -1,4 +1,4 @@
-<figure class="highlight"><section><pre><code><span class='k'>namespace</span> <span class='m'>Cell</span>.<span class='m'>Facades</span> {
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> <span class='m'>Cell</span>.<span class='m'>Automata</span> {
   <span class='k'>class</span> <span class='m'>Counter</span> {
     Counter();
 
@@ -19,6 +19,8 @@
     <span class='c'>// User-defined methods</span>
     <span class='b'>long</span> Value();
     <span class='b'>long</span> Updates();
+    <span class='b'>bool</span> IsGreaterThan(<span class='b'>long</span>);
+    (<span class='b'>long</span> value, <span class='b'>long</span> updates) CopyState();
   }
 }
 </code></pre></section></figure>

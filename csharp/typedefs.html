@@ -1,0 +1,52 @@
+<figure class="highlight"><section><pre><code><span class='k'>namespace</span> <span class='m'>Cell</span>.<span class='m'>Typedefs</span> {
+  <span class='k'>public</span> <span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Point</span> {
+    <span class='k'>public</span> <span class='b'>long</span> x;
+    <span class='k'>public</span> <span class='b'>long</span> y;
+
+    <span class='k'>public</span> Point(<span class='b'>long</span> x, <span class='b'>long</span> y) {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  <span class='k'>public</span> <span class='k'>interface</span> <span class='m'>Shape</span> {
+
+  }
+
+  <span class='k'>public</span> <span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Rectangle</span> : <span class='m'>Shape</span> {
+    <span class='k'>public</span> <span class='b'>long</span> left;
+    <span class='k'>public</span> <span class='b'>long</span> width;
+    <span class='k'>public</span> <span class='b'>long</span> bottom;
+    <span class='k'>public</span> <span class='b'>long</span> height;
+
+    <span class='k'>public</span> Rectangle(<span class='b'>long</span> left, <span class='b'>long</span> width, <span class='b'>long</span> bottom, <span class='b'>long</span> height) {
+      this.left = left;
+      this.width = width;
+      this.bottom = bottom;
+      this.height = height;
+    }
+  }
+
+  <span class='k'>public</span> <span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Circle</span> : <span class='m'>Shape</span> {
+    <span class='k'>public</span> <span class='m'>Point</span> center;
+    <span class='k'>public</span> <span class='b'>long</span>  radius;
+
+    <span class='k'>public</span> Circle(<span class='m'>Point</span> center, <span class='b'>long</span> radius) {
+      this.center = center;
+      this.radius = radius;
+    }
+  }
+
+  <span class='k'>public</span> <span class='k'>partial</span> <span class='k'>class</span> <span class='m'>Square</span> : <span class='m'>Shape</span> {
+    <span class='k'>public</span> <span class='b'>long</span> left;
+    <span class='k'>public</span> <span class='b'>long</span> side;
+    <span class='k'>public</span> <span class='b'>long</span> bottom;
+
+    <span class='k'>public</span> Square(<span class='b'>long</span> left, <span class='b'>long</span> side, <span class='b'>long</span> bottom) {
+      this.left = left;
+      this.side = side;
+      this.bottom = bottom;
+    }
+  }
+}
+</code></pre></section></figure>

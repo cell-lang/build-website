@@ -8,13 +8,19 @@
 
   <span class='b'>void</span> execute(<span class='m'>String</span> message);
 
+  <span class='m'>Consumer</span>&lt;<span class='b'>string</span>&gt; onSuccess;
+  <span class='m'>Consumer</span>&lt;<span class='b'>string</span>&gt; onFailure;
+
+  <span class='c'>// Message handlers</span>
   <span class='b'>void</span> incr();
   <span class='b'>void</span> decr();
   <span class='b'>void</span> reset();
   <span class='b'>void</span> reset(<span class='b'>long</span>);
 
+  <span class='c'>// User-defined methods</span>
   <span class='b'>long</span> value();
   <span class='b'>long</span> updates();
+  <span class='b'>boolean</span> isGreaterThan(<span class='b'>long</span>);
 }
 </code></pre></section></figure>
 

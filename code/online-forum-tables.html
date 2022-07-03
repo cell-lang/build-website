@@ -22,7 +22,7 @@
   CHAT_GROUP  <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
   JOINED_ON   <span style="color: #333399">DATE</span>    <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
   KARMA       <span style="color: #333399">INT</span>     <span style="color: #008800">NOT</span> <span style="color: #003366">NULL</span>,
-  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (USER, GROUP),
+  <span style="color: #008800">PRIMARY</span> <span style="color: #008800">KEY</span> (USER, CHAT_GROUP),
   <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (USER)       <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">USERS</span>(ID)
   <span style="color: #008800">FOREIGN</span> <span style="color: #008800">KEY</span> (CHAT_GROUP) <span style="color: #008800">REFERENCES</span> <span style="color: #0066BB">CHAT_GROUPS</span>(ID)
 );
